@@ -14,26 +14,93 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
+            // 'started' => [ //name route
+            //     'type' => Literal::class, //type route
+            //     'options' => [
+            //         'route'    => '/started/index', //url
+            //         'defaults' => [
+            //             'controller' => Controller\UserController::class,
+            //             'action'     => 'index', //function chạy mặc định
+            //         ],
+            //     ],
+            // ],
+            // 'started_2' => [ //name route
+            //     'type' => Literal::class, //type route
+            //     'options' => [
+            //         'route'    => '/started/admin/index', //url
+            //         'defaults' => [
+            //             'controller' => Controller\AdminController::class,
+            //             'action'     => 'index', //function chạy mặc định
+            //         ],
+            //     ],
+            // ],
+            // 'started_login' => [ 
+            //     'type' => Literal::class,
+            //     'options' => [
+            //         'route'    => '/started/admin/login', 
+            //         'defaults' => [
+            //             'controller' => Controller\AdminController::class,
+            //             'action'     => 'login', 
+            //         ],
+            //     ],
+            // ]
+            // 'started' => [ //name route
+            //     'type' => Segment::class, //type route
+            //     'options' => [
+            //         'route'    => '/started[/:action][/:id]', //url
+            //         'defaults' => [
+            //             'controller' => Controller\UserController::class,
+            //             'action'     => 'index', //function chạy mặc định
+            //         ],
+            //         'constraints'=>[
+            //             'action' => '[a-zA-Z]*',
+            //             'id'=>'[0-9]*'
+            //         ]
+            //     ],
+                
+            // ],
+            // 'started' => [ //name route
+            //     'type' => Segment::class, //type route
+            //     'options' => [
+            //         'route'    => '/started[/:controller][/:action][/:id]', //url
+            //         'defaults' => [
+            //             'controller' => 'User',
+            //             'action'     => 'index', //function chạy mặc định
+            //         ],
+            //         'constraints'=>[
+            //             'action' => '[a-zA-Z]*',
+            //             'id'=>'[0-9]*'
+            //         ]
+            //     ],
+            // ],
+
             'started' => [ //name route
-                'type' => Literal::class, //type route
+                'type' => Segment::class, //type route
                 'options' => [
-                    'route'    => '/started/index', //url
+                    'route'    => '/started', //url
                     'defaults' => [
-                        'controller' => Controller\UserController::class,
+                        'controller' => 'User',
                         'action'     => 'index', //function chạy mặc định
                     ],
+                    'constraints'=>[
+                        'action' => '[a-zA-Z]*',
+                        'id'=>'[0-9]*'
+                    ]
                 ],
+                'may_terminate'=> true, //cho child phu thuoc route cha
+                'child_routes'=>[
+                    'sub_route'=>[ // sub_route name route
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/huong[/:id]', // started/huong
+                            'defaults' => [
+                                'controller'=>'Admin',
+                                'action' => 'login', //function chạy mặc định
+                            ]
+                        ],
+                    ]
+                ]
             ],
-            'started_2' => [ //name route
-                'type' => Literal::class, //type route
-                'options' => [
-                    'route'    => '/started/admin/index', //url
-                    'defaults' => [
-                        'controller' => Controller\AdminController::class,
-                        'action'     => 'index', //function chạy mặc định
-                    ],
-                ],
-            ]
         ],
     ],
     'controllers' => [
@@ -41,5 +108,9 @@ return [
             Controller\UserController::class => InvokableFactory::class,
             Controller\AdminController::class => InvokableFactory::class
         ],
+        'aliases'=>[
+            'User'=> Controller\UserController::class,
+            'Admin'=> Controller\AdminController::class
+        ]
     ]
 ];
