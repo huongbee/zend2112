@@ -1,2 +1,61 @@
-<h2>Form Element </h2>
-    
+
+<?php
+$form = $this->forms;
+$form->setAttributes([
+    'method'=>"GET",
+    'action'=>"/add/user"
+]);
+
+$fullname = $form->get('fullname');
+$username = $form->get('name');
+$form->prepare();
+?>
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-sm-offset-3">
+        <h2>Form Element </h2>
+
+        <?=$this->form()->openTag($form); // <form>?>
+        
+        <div class="form-group">
+            <!-- C2 -->
+            <?=$this->formLabel($fullname)?>
+            <div class="col-sm-10">
+                <?=$this->formElement($fullname)?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <!-- C1 -->
+            <?=$this->formRow($fullname)?>
+        </div>
+        
+
+        <div class="form-group">
+            <!-- C3 -->
+            <?=$this->formLabel($fullname)?>
+            <?=$this->formText($fullname)?>
+        </div>
+
+        <div class="form-group">
+            <!-- C4 -->
+            <?=$this->formLabel($fullname)?>
+            <?=$this->formInput($fullname)?>
+        </div>
+        
+
+        <div class="form-group">
+            <!-- C4 -->
+            <?=$this->formLabel($username)?>
+            <?=$this->formInput($username)?>
+        </div>
+
+        <?=$this->form()->closeTag($form); // </form>?>
+    </div>
+</div>
+
+<?
+/**
+ * formRow() = formElement()/formInput()/formText()  + formLabel() + formElementErrors()
+ * 
+ */
+?>
