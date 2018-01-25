@@ -27,7 +27,8 @@
     "autoload": {
         "psr-4": {
             "Application\\": "module/Application/src/",
-            "Started\\": "module/Started/src/"
+            "Started\\": "module/Started/src/",
+            "Form\\": "module/Form/src/"
         }
     },
     "autoload-dev": {
