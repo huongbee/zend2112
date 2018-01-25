@@ -92,7 +92,7 @@ return [
                     'sub_route'=>[ // sub_route name route
                         'type' => Segment::class,
                         'options' => [
-                            'route'    => '/huong[/:id]', // started/huong
+                            'route'    => '/huong[/:action][/:id]', // started/huong
                             'defaults' => [
                                 'controller'=>'Admin',
                                 'action' => 'login', //function chạy mặc định
@@ -111,6 +111,12 @@ return [
         'aliases'=>[
             'User'=> Controller\UserController::class,
             'Admin'=> Controller\AdminController::class
+        ]
+    ],
+
+    'view_manager'=>[
+        'template_path_stack' => [
+            __DIR__ . '/../view',
         ]
     ]
 ];
