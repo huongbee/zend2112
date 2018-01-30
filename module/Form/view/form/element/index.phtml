@@ -2,12 +2,19 @@
 <?php
 $form = $this->forms;
 $form->setAttributes([
-    'method'=>"GET",
+    'method'=>"POST",
     'action'=>"/add/user"
 ]);
 
 $fullname = $form->get('fullname');
 $username = $form->get('name');
+$hidden = $form->get('token');
+$refresh = $form->get('refresh');
+$btnSubmit = $form->get('btnSubmit');
+$csrf = $form->get('csrf');
+$subject = $form->get('subject');
+$sport = $form->get('sport');
+$sport_2 = $form->get('sport_2');
 $form->prepare();
 ?>
 <div class="row">
@@ -48,6 +55,35 @@ $form->prepare();
             <?=$this->formLabel($username)?>
             <?=$this->formInput($username)?>
         </div>
+        <?=$this->formRow($hidden);?>
+        <?=$this->formRow($csrf);?>
+
+        <div class="form-group">
+            <?=$this->formLabel($subject)?>
+            <?=$this->formElement($subject)?>
+        </div>
+        <div class="form-group">
+            <?=$this->formCheckbox($sport);?>
+            <?=$this->formLabel($sport);?>
+        </div>
+        <div class="form-group">
+            <?=$this->formCheckbox($sport_2);?>
+            <?=$this->formLabel($sport_2);?>
+        </div>
+        <div class="form-group">
+            <?=$this->formLabel($form->get('gender'));?>
+            <?=$this->formRadio($form->get('gender'));?>
+        </div>
+        <div class="form-group">
+            <?=$this->formLabel($form->get('favorite'));?>
+            <?=$this->formElement($form->get('favorite'));?>
+        </div>
+        <div class="form-group">
+             <?=$this->formCaptcha($form->get('captcha'));?>
+        </div>
+
+        <?=$this->formRow($refresh);?>
+        <?=$this->formRow($btnSubmit)?>
 
         <?=$this->form()->closeTag($form); // </form>?>
     </div>
