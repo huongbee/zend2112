@@ -25,7 +25,8 @@
         "zendframework/zend-servicemanager-di": "^1.0",
         "zendframework/zend-form": "^2.11",
         "zendframework/zend-math": "^3.0",
-        "zendframework/zend-captcha": "^2.7"
+        "zendframework/zend-captcha": "^2.7",
+        "zendframework/zend-validator": "^2.10"
     },
     "autoload": {
         "psr-4": {

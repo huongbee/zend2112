@@ -1,0 +1,72 @@
+
+<?php
+$form = $this->forms;
+$form->setAttributes([
+    'method'=>"POST",
+    'action'=>"#"
+]);
+
+$fullname = $form->get('fullname');
+$username = $form->get('name');
+$hidden = $form->get('token');
+$refresh = $form->get('refresh');
+$btnSubmit = $form->get('btnSubmit');
+$csrf = $form->get('csrf');
+$subject = $form->get('subject');
+$sport = $form->get('sport');
+$sport_2 = $form->get('sport_2');
+$form->prepare();
+?>
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-sm-offset-3">
+        <h2>Validate Form </h2>
+
+        <?=$this->form()->openTag($form); // <form>?>
+
+        <div class="form-group">
+            <!-- C4 -->
+            <?=$this->formLabel($fullname)?>
+            <?=$this->formInput($fullname)?>
+            <?=$this->FormElementErrors($fullname)?>
+        </div>
+        
+
+        <div class="form-group">
+            <!-- C4 -->
+            <?=$this->formLabel($username)?>
+            <?=$this->formInput($username)?>
+        </div>
+        <?=$this->formRow($hidden);?>
+        <?=$this->formRow($csrf);?>
+
+        <div class="form-group">
+            <?=$this->formLabel($subject)?>
+            <?=$this->formElement($subject)?>
+        </div>
+        <div class="form-group">
+            <?=$this->formCheckbox($sport);?>
+            <?=$this->formLabel($sport);?>
+        </div>
+        
+        <div class="form-group">
+            <?=$this->formLabel($form->get('gender'));?>
+            <?=$this->formRadio($form->get('gender'));?>
+        </div>
+        <div class="form-group">
+            <?=$this->formLabel($form->get('favorite'));?>
+            <?=$this->formElement($form->get('favorite'));?>
+        </div>
+        <div class="form-group">
+             <?=$this->formCaptcha($form->get('captcha'));?>
+        </div>
+        <div class="form-group">
+            <?=$this->formRow($form->get('avatar'))?>
+        </div>
+
+        <?=$this->formRow($refresh);?>
+        <?=$this->formRow($btnSubmit)?>
+
+
+        <?=$this->form()->closeTag($form); // </form>?>
+    </div>
+</div>
