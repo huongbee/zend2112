@@ -204,6 +204,16 @@ class FormElement extends Form{
                 'label'=>'Human check: ',
             ]
         ]);
+        $this->add([
+            'type'=>'File',
+            'name'=>'avatar',
+            'options'=>[
+                'label'=>'Choose Avatar',
+                'label_options'=>[
+                    'class'=>'control-label'
+                ]
+            ]
+        ]);
 
 
 

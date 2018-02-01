@@ -3,7 +3,7 @@
 $form = $this->forms;
 $form->setAttributes([
     'method'=>"POST",
-    'action'=>"/add/user"
+    'action'=>"#"
 ]);
 
 $fullname = $form->get('fullname');
@@ -81,9 +81,13 @@ $form->prepare();
         <div class="form-group">
              <?=$this->formCaptcha($form->get('captcha'));?>
         </div>
+        <div class="form-group">
+            <?=$this->formRow($form->get('avatar'))?>
+        </div>
 
         <?=$this->formRow($refresh);?>
         <?=$this->formRow($btnSubmit)?>
+
 
         <?=$this->form()->closeTag($form); // </form>?>
     </div>
