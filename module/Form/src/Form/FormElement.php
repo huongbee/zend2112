@@ -187,20 +187,20 @@ class FormElement extends Form{
             'type'=>'Captcha',
             'name'=>'captcha',
             'options'=>[
-                'captcha' => [
+                'captcha'=>[
                     'class'=>'Image',
                     'imgDir'=>'public/img/captcha/',
-                    'imgUrl' => 'img/captcha/',
+                    'imgUrl' => '../img/captcha/',
                     'suffix'=>'.png',
-                    'dotNoiseLevel'=>200,
-                    'lineNoiseLevel'=>5,
+                    'dotNoiseLevel'=>100,
+                    'lineNoiseLevel'=>3,
                     'height' => 200,
                     'width'=>400,
-                    'wordLen'=>5,
+                    'wordLen'=>7,
                     'fsize'=>50, //font size
                     'font'=>'public/fonts/Permanent_Marker/PermanentMarker-Regular.ttf',
                     'expiration' => 100,
-                ],
+                    ],
                 'label'=>'Human check: ',
             ]
         ]);
