@@ -36,7 +36,6 @@ if (file_exists(__DIR__ . '/../config/development.config.php')) {
     $appConfig = ArrayUtils::merge($appConfig, require __DIR__ . '/../config/development.config.php');
 }
 
-// APPLICATION_PATH: hằng số lưu đường dẫn thư mục ứng dụng
-define('APPLICATION_PATH', dirname(__DIR__));
-// Run the application!
+define('FILE_PATH', __DIR__.'/img/');
+ 
 Application::init($appConfig)->run();
