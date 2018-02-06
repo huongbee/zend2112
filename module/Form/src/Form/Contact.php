@@ -2,6 +2,9 @@
 namespace Form\Form;
 use Zend\Form\Element\Text;
 use Zend\Form\Form;
+use Zend\InputFilter\InputFilter; 
+use Zend\Validator\StringLength; 
+use Zend\Filter; 
 
 class Contact extends Form{
 
@@ -76,8 +79,42 @@ class Contact extends Form{
             ]
         ]);
 
-        
+        $this->filterForm();
+    }
+
+    function filterForm(){
+        $filter = new InputFilter();
+        $this->setInputFilter($filter);
+
+        //fullname: required, min:5
+        $filter->add([
+            'name'=>'fullname',
+            'required'=>true,
+            'filters'=>[
+                ['name'=>Filter\StripNewlines::class],
+                ['name'=>Filter\StringToUpper::class]
+            ],
+            'validators'=>[
+                [
+                    'name'=>'StringLength',
+                    'options'=>[
+                        'min'=>5,
+                        'messages'=>[
+                            StringLength::TOO_SHORT=>'Họ tên ít nhất %min% kí tự, chuỗi hiện tại %length% kí tự'
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        //email : required, min:10, max:50; valid
+
+        //title: required, max: 100,
+
+        //message: required
+
     }
 }
+
 
 ?>
