@@ -1,0 +1,32 @@
+<?php
+$form = $this->form;
+
+$fullname = $form->get('fullname');
+$email = $form->get('email');
+$subject = $form->get('subject');
+$message = $form->get('message');
+$btnSubmit = $form->get('btnSubmit');
+
+$form->prepare();
+?>
+
+<form action="" method="POST" role="form">
+    <legend>Contact Form</legend>
+
+    <div class="form-group">
+        <?=$this->formRow($fullname)?>
+    </div>
+    <div class="form-group">
+        <?=$this->formRow($email)?>
+    </div>
+    <div class="form-group">
+        <?=$this->formRow($subject)?>
+    </div>
+    <div class="form-group">
+        <?=$this->formRow($message)?>
+    </div>
+    <div class="form-group">
+        <?=$this->formRow($btnSubmit)?>
+    </div>
+    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+</form>

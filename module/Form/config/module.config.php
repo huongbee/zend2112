@@ -12,9 +12,9 @@ return [
             'form' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/form[/:action]',
+                    'route'    => '/form[/:controller][/:action]',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => 'index',
                         'action'     => 'index',
                     ],
                 ],
@@ -24,7 +24,12 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
+            Controller\ContactController::class => InvokableFactory::class,
         ],
+        'aliases'=>[
+            'index'=>Controller\IndexController::class,
+            'contact'=>Controller\ContactController::class
+        ]
     ],
     'view_manager' => [
         'template_path_stack' => [

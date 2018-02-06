@@ -5,7 +5,7 @@ use Zend\View\Model\ViewModel;
 use Form\Form\FormElement;
 use Zend\Validator\StringLength;
 use Zend\Validator\InArray;
-//use Zend\Validator\EmailAddress;
+use Zend\Validator\EmailAddress;
 use Zend\Validator\NotEmpty;
 use Zend\Validator\ValidatorChain;
 use  Zend\Validator\Regex;
@@ -211,6 +211,49 @@ class IndexController extends AbstractActionController{
         return false;
     }
 
+    public function validator04Action(){
+        //email
+        //đúng định dang, ít nhất 10 kí tự, 50 kí tự , không rỗng
+        $emailAddress = new EmailAddress() ;
+        $emailAddress->setMessages([
+            EmailAddress::INVALID_FORMAT => "Email không đúng định dạng",
+            EmailAddress::INVALID => "Không đúng kiểm dữ liệu email",
+            EmailAddress::INVALID_HOSTNAME => "%hostname% không tồn tại"
+        ]);
+
+        $stringLength = new StringLength(['min'=>10,'max'=>50]);
+        $stringLength->setMessages([
+            StringLength::TOO_LONG=>"Email không quá 50 kí tự",
+            StringLength::TOO_SHORT=>"Email ít nhất %min% kí tự"
+        ]);
+
+        $notEmpty = new NotEmpty();
+        $notEmpty->setMessages([
+            NotEmpty::IS_EMPTY=>'Vui lòng nhập email'
+        ]);
+        
+        $validatorChain = new ValidatorChain();
+        $validatorChain->attach($notEmpty,true, 3);
+        $validatorChain->attach($emailAddress,true, 1);
+        $validatorChain->attach($stringLength,false, 2);
+
+        $email = "huong@gmail.com";//true
+        $email = ""; //false
+        $email = "huong";
+
+        if($validatorChain->isValid($email)){
+            echo "Email thoả mãn";
+        }
+        else{
+            echo "Lỗi";
+            echo "<br>";
+            foreach($validatorChain->getMessages() as $err){
+                echo $err;
+                echo "<br>";
+            }
+        }
+        return false;
+    }
 }
 
 
