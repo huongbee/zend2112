@@ -19,16 +19,19 @@ return [
                     ],
                 ],
             ],
+            
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\ContactController::class => InvokableFactory::class,
+            Controller\UploadFileController::class => InvokableFactory::class,
         ],
         'aliases'=>[
             'index'=>Controller\IndexController::class,
-            'contact'=>Controller\ContactController::class
+            'contact'=>Controller\ContactController::class,
+            'upload-file'=>Controller\UploadFileController::class
         ]
     ],
     'view_manager' => [

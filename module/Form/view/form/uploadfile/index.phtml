@@ -1,0 +1,29 @@
+<?php
+$form = $this->form;
+
+$file = $form->get('file-upload');
+$btn = $form->get('btnSubmit');
+
+$form->setAttributes([
+    'enctype' => 'multipart/form-data',
+    'action' => $this->url('form',[
+        'controller'=>'upload-file',
+        'action'=>'index'
+    ])
+]);
+
+?>
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <h2>Upload File</h2>
+        <?= $this->form()->openTag($form)?>
+        <div class="form-group">
+            <?=$this->formRow($file)?>
+        </div>
+
+        <div class="form-group">
+            <?=$this->formRow($btn)?>
+        </div>
+        <?= $this->form()->closeTag()?>
+    </div>
+</div>
