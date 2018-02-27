@@ -5,6 +5,7 @@ use Zend\Form\Form;
 use Zend\InputFilter\InputFilter; 
 use Zend\Validator\StringLength; 
 use Zend\Filter; 
+use Zend\Validator\NotEmpty;
 
 class Contact extends Form{
 
@@ -66,7 +67,8 @@ class Contact extends Form{
                 ]
             ],
             'attributes'=>[
-                'class'=>'form-control'
+                'class'=>'form-control',
+                "rows"=>5
             ]
         ]);
 
@@ -96,12 +98,22 @@ class Contact extends Form{
             ],
             'validators'=>[
                 [
+                    'name'=>"NotEmpty",
+                    'options'=>[
+                        'messages'=>[
+                            NotEmpty::IS_EMPTY=>"Vui lòng nhập họ tên"
+                        ],
+                         'break_chain_on_failure'=>true,
+                    ] 
+                ],
+                [
                     'name'=>'StringLength',
                     'options'=>[
                         'min'=>5,
                         'messages'=>[
                             StringLength::TOO_SHORT=>'Họ tên ít nhất %min% kí tự, chuỗi hiện tại %length% kí tự'
-                        ]
+                        ],
+                        'break_chain_on_failure'=>true
                     ]
                 ]
             ]
