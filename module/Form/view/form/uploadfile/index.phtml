@@ -11,14 +11,27 @@ $form->setAttributes([
         'action'=>'index'
     ])
 ]);
-
+$form->prepare();
 ?>
+<style>
+.text-danger{
+    margin-top:10px
+}
+.text-danger li{
+    list-style-type:none
+}
+</style>
+
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
         <h2>Upload File</h2>
         <?= $this->form()->openTag($form)?>
         <div class="form-group">
-            <?=$this->formRow($file)?>
+            <?=$this->formLabel($file)?>
+            <?=$this->formElement($file)?>
+            <?=$this->formElementErrors($file,[
+                'class'=>'text-danger'])
+            ?>
         </div>
 
         <div class="form-group">

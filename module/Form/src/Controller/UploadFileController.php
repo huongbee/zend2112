@@ -4,6 +4,9 @@ namespace Form\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Form\Form\UploadFile;
+use Zend\File\Transfer\Adapter\Http;
+use Zend\Filter\File\Rename;
+
 
 class UploadFileController extends AbstractActionController{
 
@@ -11,12 +14,46 @@ class UploadFileController extends AbstractActionController{
         $form = new UploadFile;
 
         $request = $this->getRequest();
-        
+
         if($request->isPost()){
-            $file = $request->getFiles();
-            echo "<pre>";
-            print_r($file);
-            echo "</pre>";
+            $input = $this->params()->fromPost();
+            
+            $file = $request->getFiles()->toArray();
+
+            $data = array_merge($input,$file);
+            
+            $form->setData($data);
+
+            if($form->isValid()){
+
+                // echo "<pre>";
+                // print_r($file);
+                // echo "</pre>";
+                // $upload = new Http();
+
+                // // $fileInfor = $upload->getFileInfo();
+                // // echo $nameFile = $upload->getFileName();
+                // // echo $fileSize = $upload->getFileSize();
+                
+                // $upload->setDestination(FILE_PATH.'upload/');
+                // $upload->receive();
+
+                // if($upload->isUploaded()){
+                //     echo "uploaded";
+                // }
+                // else{
+                //     echo "upload errors..";
+                // }
+
+                $rename = new Rename([
+                    'target'=>FILE_PATH.'upload/'.$data['file-upload']['name'],
+                    'randomize'=>true,
+                    'overwrite'=>true
+                ]);
+                $result = $rename->filter($data['file-upload']);
+                print_r($result);
+            }
+            
         }
 
         $view =  new ViewModel(['form'=>$form]);
