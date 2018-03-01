@@ -1,0 +1,38 @@
+<?php
+
+namespace Database;
+
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
+use Zend\ServiceManager\Factory\InvokableFactory;
+
+return [
+    'router' => [
+        'routes' => [
+            'database' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/database[/:controller][/:action]',
+                    'defaults' => [
+                        'controller' => 'index',
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+            
+        ],
+    ],
+    'controllers' => [
+        'factories' => [
+            Controller\IndexController::class => InvokableFactory::class
+        ],
+        'aliases'=>[
+            'index'=>Controller\IndexController::class
+        ]
+    ],
+    // 'view_manager' => [
+    //     'template_path_stack' => [
+    //         __DIR__ . '/../view',
+    //     ],
+    // ],
+];
