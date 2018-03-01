@@ -60,6 +60,41 @@ class UploadFileController extends AbstractActionController{
         $view->setTemplate('form/uploadfile/index');
         return $view;
     }
+
+    function index02Action(){
+        $form = new UploadFile;
+
+        $request = $this->getRequest();
+
+        if($request->isPost()){
+            
+            $file = $request->getFiles()->toArray();
+
+            // echo "<pre>";
+            // print_r($file);
+            // echo "</pre>";
+            // die;
+            $form->setData($file);
+
+            if($form->isValid()){
+                foreach($file['file-upload'] as $f){
+                    $rename = new Rename([
+                        'target'=>FILE_PATH.'upload/'.$f['name'],
+                        'randomize'=>true,
+                        'overwrite'=>true
+                    ]);
+                    $result = $rename->filter($f);
+                    //print_r($result);
+                }
+                echo "Upload successfully";
+            }
+            
+        }
+
+        $view =  new ViewModel(['form'=>$form]);
+        $view->setTemplate('form/uploadfile/index');
+        return $view;
+    }
 }
 
 
