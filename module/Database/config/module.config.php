@@ -24,10 +24,12 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class
+            Controller\IndexController::class => InvokableFactory::class,
+            Controller\HomeController::class => InvokableFactory::class
         ],
         'aliases'=>[
-            'index'=>Controller\IndexController::class
+            'index'=>Controller\IndexController::class,
+            'home'=>Controller\HomeController::class
         ]
     ],
     // 'view_manager' => [

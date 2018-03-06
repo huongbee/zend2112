@@ -1,6 +1,5 @@
 1. Liệt kê danh sách sản phẩm gồm có tên Tên sp,Đơn giá, Hình. Sắp xếp giảm theo cột đơn giá
-2. Liệt kê danh sách khách hàng gồm có các thông tin sau: tên khách hàng, giới tính, địa chỉ, điện thoại, 
-	danh sách sẽ được sắp tăng dần theo tên khách hàng.
+2. Liệt kê danh sách khách hàng gồm có các thông tin sau: tên khách hàng, giới tính, địa chỉ, điện thoại, danh sách sẽ được sắp tăng dần theo tên khách hàng.
 3. Liệt kê danh sách sản phẩm gồm có: Tên sp, Mô tả, Đơn giá. Chỉ liệt kê các Sản phẩm "Sofa" và giá lớn hơn > 1.000.0000
 4. Cho biết tên sản phẩm, Mô tả, đơn giá của 10 sản phẩm có đơn giá cao nhất.
 5. Cho biết đơn giá trung bình của các sp hiện có trong cửa hàng
