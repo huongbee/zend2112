@@ -1,0 +1,18 @@
+1. Liệt kê danh sách sản phẩm gồm có tên Tên sp,Đơn giá, Hình. Sắp xếp giảm theo cột đơn giá
+2. Liệt kê danh sách khách hàng gồm có các thông tin sau: tên khách hàng, giới tính, địa chỉ, điện thoại, 
+	danh sách sẽ được sắp tăng dần theo tên khách hàng.
+3. Liệt kê danh sách sản phẩm gồm có: Tên sp, Mô tả, Đơn giá. Chỉ liệt kê các Sản phẩm "Sofa" và giá lớn hơn > 1.000.0000
+4. Cho biết tên sản phẩm, Mô tả, đơn giá của 10 sản phẩm có đơn giá cao nhất.
+5. Cho biết đơn giá trung bình của các sp hiện có trong cửa hàng
+
+6. Liệt kê danh sách sản phẩm gồm có tên Tên loại, Tên sp, Mô tả, Đơn giá và sắp xếp Tên loại theo chiều tăng dần.
+7. Thống kê tổng số sản phẩm theo Loại, gồm các thông tin: Tên Loại sản phẩm, tổng số sản phẩm, có sắp tăng theo tổng số sản phẩm
+8. Cho biết đơn giá trung bình/min/max của sản phẩm theo từng Loại sản phẩm.
+9. Cho biết tổng giá tiền và số sản phẩm của sản phẩm có đơn giá trong khoảng 1.000.000đ đến 3.000.000đ theo từng loại sản phẩm.
+10. Cho biết đơn giá trung bình sản phẩm thuộc loại sản phẩm là "Tủ bếp"
+
+11. Thêm thông tin user mới là thông tin của bạn
+12. Thêm hoá đơn mới cho khách hàng có mã số là 16, mua 8 chiếc "Ghế văn phòng JONES"
+13. Xoá sp có đơn giá < 50.000
+14. Xoá token và token_date của những đơn hàng đã xác nhận 
+15. Cập nhật lại đơn giá khuyến mãi cho sp "Giường ALBANY" biết rằng sp được khuyến mãi 10% 
