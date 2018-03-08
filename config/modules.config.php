@@ -27,5 +27,6 @@ return [
     'Application',
     'Started',
     'Form',
-    'Database'
+    'Database',
+    'Products'
 ];
