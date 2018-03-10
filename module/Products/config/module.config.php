@@ -23,9 +23,9 @@ return [
         ],
     ],
     'controllers' => [
-        'factories' => [
-            Controller\ProductController::class => InvokableFactory::class
-        ],
+        // 'factories' => [
+        //     Controller\ProductController::class => InvokableFactory::class
+        // ],
         'aliases'=>[
             'product'=>Controller\ProductController::class
         ]
