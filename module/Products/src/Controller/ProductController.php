@@ -4,6 +4,8 @@ namespace Products\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Products\Model\ProductsTable;
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\ArrayAdapter;
 
 class ProductController extends AbstractActionController{
     
@@ -25,8 +27,20 @@ class ProductController extends AbstractActionController{
 
     function indexAction(){
         //    $products = $this->table->getAllProducts();
+        $page = $this->params()->fromRoute('page');
+        
         $products = $this->table->fetchAll();
-        return new ViewModel(['products'=>$products]);
+
+        $arrProducts = [];
+        foreach($products as $p){
+            $arrProducts[] = $p; 
+        }
+        $paginator = new Paginator(new ArrayAdapter($arrProducts));
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(5);
+        $paginator->setPageRange(3);
+
+        return new ViewModel(['products'=>$paginator]);
     }
 
     function addAction(){

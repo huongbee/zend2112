@@ -9,14 +9,18 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
-            'form' => [
+            'products' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '[/:controller][/:action]',
+                    'route'    => '[/:controller][/:action][/:page]',
                     'defaults' => [
                         'controller' => 'product',
                         'action'     => 'index',
+                        'page' => 1
                     ],
+                    'constraints'=>[
+                        'page'=>'[0-9]+'
+                    ]
                 ],
             ],
             

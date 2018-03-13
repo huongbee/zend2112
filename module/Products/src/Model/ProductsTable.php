@@ -5,7 +5,6 @@ use RuntimeException;
 use Zend\Db\TableGateway\TableGatewayInterface;
 use Zend\Db\Sql\Sql;
 
-
 class ProductsTable {
     private $tabelGateway;
 
@@ -40,6 +39,7 @@ class ProductsTable {
         return $results = $statement->execute();
     }
 
+    
 }
 
 

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>List Product</title>
+    <base href="http://localhost/zend2112/public/">
 </head>
 
 <body>
@@ -25,7 +26,7 @@
         <tbody>
             <?php 
             $stt = 1;
-            foreach($products as $p):
+            foreach($this->products as $p):
             $p = (object)$p;
             ?>
 
@@ -35,10 +36,23 @@
                 <td><?=$p->name_type?></td>
                 <td><?=$p->summary?></td>
                 <td><?=number_format($p->price)?></td>
-                <td><?=$p->image?></td>
+                <td width="30%">
+                <?php
+                    $images = json_decode($p->image);
+                    foreach($images as $img):?>
+                    <img src='img/images/<?=$img?>' height="80px">
+                <?php endforeach ?>
+                </td>
                 <td>Edit | Delete</td>
             </tr>
             <?php endforeach?>
+
+            <?= $this->paginationControl(
+                $products,
+                'Sliding',
+                'paginator/pagination-2.phtml',
+                ['route' => 'products']
+            ) ?>
         </tbody>
     </table>
 
