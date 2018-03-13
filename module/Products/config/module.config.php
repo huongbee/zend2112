@@ -14,9 +14,7 @@ return [
                 'options' => [
                     'route'    => '[/:controller][/:action][/:page]',
                     'defaults' => [
-                        'controller' => 'product',
-                        'action'     => 'index',
-                        'page' => 1
+                        
                     ],
                     'constraints'=>[
                         'page'=>'[0-9]+'

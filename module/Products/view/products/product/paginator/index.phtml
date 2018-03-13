@@ -17,8 +17,8 @@
     <?php foreach ($this->pagesInRange as $page): ?>
     <?php if ($page != $this->current): ?>
         <a href="<?= $this->url($this->route, [
-                                    'page' => $page,
-                                    'action'=>'index'
+                                    'action'=>'index',
+                                    'page' => $page
                                 ]); ?>">
             <?= $page; ?>
         </a> |
