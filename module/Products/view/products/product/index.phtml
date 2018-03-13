@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>List Product</title>
 </head>
+
 <body>
-    
-    <h2>Hello Class</h2>
+
+    <h2>List of products</h2>
+
+    <table class="table table-hover">
+        <thead>
+            <th>STT</th>
+            <th>Name</th>
+            <th>Name Type</th>
+            <th>Summary</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Options</th>
+        </thead>
+        <tbody>
+            <?php 
+            $stt = 1;
+            foreach($products as $p):
+            $p = (object)$p;
+            ?>
+
+            <tr>
+                <td><?=$stt++?></td>
+                <td><?=$p->name?></td>
+                <td><?=$p->name_type?></td>
+                <td><?=$p->summary?></td>
+                <td><?=number_format($p->price)?></td>
+                <td><?=$p->image?></td>
+                <td>Edit | Delete</td>
+            </tr>
+            <?php endforeach?>
+        </tbody>
+    </table>
+
 </body>
+
 </html>

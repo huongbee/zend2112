@@ -24,7 +24,9 @@ class ProductController extends AbstractActionController{
     }
 
     function indexAction(){
-       
+        //    $products = $this->table->getAllProducts();
+        $products = $this->table->fetchAll();
+        return new ViewModel(['products'=>$products]);
     }
 
     function addAction(){
