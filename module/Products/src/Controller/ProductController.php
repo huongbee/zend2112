@@ -38,7 +38,7 @@ class ProductController extends AbstractActionController{
         $paginator = new Paginator(new ArrayAdapter($arrProducts));
         $paginator->setCurrentPageNumber($page);
         $paginator->setItemCountPerPage(5);
-        $paginator->setPageRange(3);
+        $paginator->setPageRange(5);
 
         return new ViewModel(['products'=>$paginator]);
     }
