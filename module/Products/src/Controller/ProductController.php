@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Products\Model\ProductsTable;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
+use Products\Form\ProductForm;
 
 class ProductController extends AbstractActionController{
     
@@ -44,7 +45,12 @@ class ProductController extends AbstractActionController{
     }
 
     function addAction(){
-
+        $form = new  ProductForm();
+        $request = $this->getRequest();
+        if($request->isGet()){
+            return new ViewModel(['form'=>$form]);
+        }
+        //luu db
     }
     
     function editAction(){
