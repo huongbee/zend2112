@@ -7,6 +7,8 @@ use Products\Model\ProductsTable;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Products\Form\ProductForm;
+use Zend\Filter\File\Rename;
+use Products\Model\Products;
 
 class ProductController extends AbstractActionController{
     
@@ -46,11 +48,56 @@ class ProductController extends AbstractActionController{
 
     function addAction(){
         $form = new  ProductForm();
+
+        $types = $this->table->getAllType();
+
+        $arrayType = [];
+        foreach($types as $type){
+            $arrayType[$type['id']] = $type['name'];
+        }
+        $form->get('id_type')->setValueOptions($arrayType);
+
         $request = $this->getRequest();
         if($request->isGet()){
             return new ViewModel(['form'=>$form]);
         }
         //luu db
+        $data = $request->getPost()->toArray();
+        $file = $request->getFiles()->toArray();
+        $data = array_merge($data,$file);
+        // print_r($data);
+        $form->setData($data);
+        if(!$form->isValid()){
+            return new ViewModel(['form'=>$form]);
+        }
+
+        //upload file
+        $arrayImage = [];
+        foreach($data['image'] as $image){
+            $newName = time().'-'.$image['name'];
+            $arrayImage[] = $newName;
+            $rename = new Rename([
+                'target'=>FILE_PATH.'images/'.$newName,
+                'overwrite'=>true
+            ]);
+            $rename->filter($image);
+        }
+        $jsonImage = json_encode($arrayImage);
+        $data['image'] = $jsonImage;
+        $data['update_at'] = date('Y-m-d',time());
+        //id_url
+        //$url = $this->table->saveUrl('huong-huong');
+        ///////////////////
+        $data['id_url'] = 1;
+
+        $product = new Products;
+        $product->exchangeArray($data);
+        $this->table->saveProduct($product);
+        return $this->redirect()->toRoute('products',[
+            'controller'=>'product',
+            'action'=>'index'
+        ]);
+
     }
     
     function editAction(){

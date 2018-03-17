@@ -285,6 +285,36 @@ class ProductForm extends Form{
                 ]
             ]
         ]);
+        //promotion_price
+        $filter->add([
+            'name'=>'promotion_price',
+            'required'=>true,
+            'filters'=>[
+                ['name'=>Filter\StripNewlines::class]
+            ],
+            'validators'=>[
+                [
+                    'name'=>"NotEmpty",
+                    'options'=>[
+                        'messages'=>[
+                            NotEmpty::IS_EMPTY=>"Vui lòng nhập đơn giá khuyến mãi "
+                        ],
+                         'break_chain_on_failure'=>true,
+                    ] 
+                ],
+                [
+                    'name'=>'Digits',
+                    'options'=>[
+                        'messages'=>[
+                            Digits::NOT_DIGITS=>'Vui lòng chỉ nhập số từ 0-9',
+                            Digits::STRING_EMPTY=>'Vui lòng nhập đơn giá khuyến mãi',
+                            Digits::INVALID=>'Dữ liệu bạn nhập ko hợp lệ'
+                        ],
+                        'break_chain_on_failure'=>true
+                    ]
+                ]
+            ]
+        ]);
 
         //image
 

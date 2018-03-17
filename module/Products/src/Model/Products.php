@@ -43,6 +43,10 @@ class Products{
         $this->noibat  = !empty($data['noibat']) ? $data['noibat'] : 0;
         $this->deleted  = !empty($data['deleted']) ? $data['deleted'] : 0;
     }
+
+    // function getArrayCopy(){
+    //     return get_object_vars($this);
+    // }
 }
 
 ?>
