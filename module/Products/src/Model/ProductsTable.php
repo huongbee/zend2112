@@ -85,6 +85,13 @@ class ProductsTable {
         return;
     }
 
+    function findProduct($id){
+        $product = $this->tabelGateway->select(['id'=>$id]);
+        $product = $product->current();
+        if(!$product) return false;
+        return $product;
+    }
+
     
 }
 

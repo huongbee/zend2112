@@ -14,7 +14,7 @@ return [
                 'options' => [
                     'route'    => '[/:controller][/:action][/:page]',
                     'defaults' => [
-                        
+                        'page'=>1
                     ],
                     'constraints'=>[
                         'page'=>'[0-9]+'

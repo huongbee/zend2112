@@ -1,12 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit</title>
-</head>
-<body>
-    <h2>Edit view</h2>
-</body>
-</html>
+<?php
+$form = $this->form;
+$form->setAttributes([
+    'class'=>'form-horizontal',
+    'action'=>$this->url('products',[
+        'controller'=>'products',
+        'action'=>'edit',
+        'page'=>1
+    ]),
+    'enctype'=>'multipart/form-data'
+]);
+$name = $form->get('name');
+$type = $form->get('id_type');
+$summary = $form->get('summary');
+$detail = $form->get('detail');
+$price = $form->get('price');
+$promotionPrice = $form->get('promotion_price');
+$image = $form->get('image');
+$size = $form->get('size');
+$material = $form->get('material');
+$color = $form->get('color');
+$unit = $form->get('unit');
+$noibat = $form->get('noibat');
+$btn = $form->get('btnSubmit');
+$form->prepare();
+
+?>
+<script src="../../ckeditor/ckeditor.js"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="text-center">Update Product</h2>
+        <br>
+        <?=$this->form()->openTag($form)?>
+        
+        <div class="form-group">
+            <?=$this->formLabel($name)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($name);
+                echo $this->formElementErrors($name);
+                ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?=$this->formLabel($type)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($type);
+                echo $this->formElementErrors($type);
+                ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?=$this->formLabel($summary)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($summary);
+                echo $this->formElementErrors($summary);
+                ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?=$this->formLabel($detail)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($detail);
+                echo $this->formElementErrors($detail);
+                ?>
+                <script>
+                CKEDITOR.replace('detail')
+                </script>
+            </div>
+        </div>
+        <div class="form-group">
+            <?=$this->formLabel($price)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($price);
+                echo $this->formElementErrors($price);
+                ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?=$this->formLabel($promotionPrice)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($promotionPrice);
+                echo $this->formElementErrors($promotionPrice);
+                ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?=$this->formLabel($image)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($image);
+                echo $this->formElementErrors($image);
+                ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?=$this->formLabel($size)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($size);
+                echo $this->formElementErrors($size);
+                ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?=$this->formLabel($material)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($material);
+                echo $this->formElementErrors($material);
+                ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?=$this->formLabel($color)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($color);
+                echo $this->formElementErrors($color);
+                ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?=$this->formLabel($unit)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($unit);
+                echo $this->formElementErrors($unit);
+                ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <?=$this->formElement($noibat);?>
+                        Nổi bật
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <?= $this->formElement($btn);?>
+            </div>
+        </div>
+
+        <?=$this->form()->closeTag()?>
+    </div>
+</div>

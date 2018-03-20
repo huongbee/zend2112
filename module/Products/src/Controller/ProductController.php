@@ -103,7 +103,25 @@ class ProductController extends AbstractActionController{
     }
     
     function editAction(){
+        $id = (int)$this->params()->fromRoute('page'); //id
+        $flag = true;
+        if($id===0) $flag = false;
 
+        $product = $this->table->findProduct($id);
+        if(!$product) $flag = false;
+
+        if(!$flag){
+            $this->flashMessenger()->addWarningMessage('Không tìm thấy sản phẩm');
+            return $this->redirect()->toRoute('products',[
+                'controller'=>'product',
+                'action'=>'index'
+            ]);
+        }
+        //print_r($product);return false;
+
+        $form = new ProductForm;
+        $form->bind($product);
+        return new ViewModel(['form'=>$form]);
     }
 
     function deleteAction(){
