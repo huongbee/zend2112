@@ -86,17 +86,19 @@ class ProductController extends AbstractActionController{
         $data['image'] = $jsonImage;
         $data['update_at'] = date('Y-m-d',time());
         //id_url
-        //$url = $this->table->saveUrl('huong-huong');
+        $url = $this->table->saveUrl();
+        print_r($url);
+        return false;
         ///////////////////
         $data['id_url'] = 1;
 
         $product = new Products;
         $product->exchangeArray($data);
         $this->table->saveProduct($product);
-        return $this->redirect()->toRoute('products',[
-            'controller'=>'product',
-            'action'=>'index'
-        ]);
+        // return $this->redirect()->toRoute('products',[
+        //     'controller'=>'product',
+        //     'action'=>'index'
+        // ]);
 
     }
     

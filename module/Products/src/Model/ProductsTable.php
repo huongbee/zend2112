@@ -59,7 +59,8 @@ class ProductsTable {
             ['url'=>$alias]
         );
         $statement = $sql->prepareStatementForSqlObject($insert);
-        return $results = $statement->execute();
+        $statement->execute();
+        return $adapter->getDriver()->getConnection()->getLastGeneratedValue();
     }
 
     function saveProduct(Products $data){
