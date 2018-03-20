@@ -21,6 +21,7 @@ $btn = $form->get('btnSubmit');
 $form->prepare();
 
 ?>
+<script src="../ckeditor/ckeditor.js"></script>
 <div class="row">
     <div class="col-sm-12">
         <h2 class="text-center">Thêm sản phẩm</h2>
@@ -63,6 +64,9 @@ $form->prepare();
                 echo $this->formElement($detail);
                 echo $this->formElementErrors($detail);
                 ?>
+                <script>
+                CKEDITOR.replace('detail')
+                </script>
             </div>
         </div>
         <div class="form-group">

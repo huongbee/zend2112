@@ -8,10 +8,27 @@
     <title>List Product</title>
     <base href="http://localhost/zend2112/public/">
 </head>
-
+<style>
+.my-message ul li{
+    list-style-type:none;
+}
+</style>
 <body>
 
-    <h2>List of products</h2>
+    <div class="row justify-content-center">
+        <div class="col-sm-4 my-message">
+            <?= $this->flashMessenger()->render('success',['alert','alert-success']);?>
+        </div>
+    </div>
+    <h2>
+        <div style="float:l,eft;width:80%">List of products</div>
+        <div style="float:right;width:20%;text-align:right">
+        <a href="<?=$this->url('products',[
+            'controller'=>'product',
+            'action'=>'add'
+        ])?>">Add</a>
+        </div>
+    </h2>
 
     <table class="table table-hover">
         <thead>

@@ -34,7 +34,7 @@ class ProductsTable {
             ]
         );
         $select->where('deleted = 0');
-        $select->order('name_type ASC');
+        $select->order('p.id DESC');
         $statement = $sql->prepareStatementForSqlObject($select);
         return $results = $statement->execute();
     }

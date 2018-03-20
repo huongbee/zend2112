@@ -9,6 +9,7 @@ use Zend\Paginator\Adapter\ArrayAdapter;
 use Products\Form\ProductForm;
 use Zend\Filter\File\Rename;
 use Products\Model\Products;
+use Zend\Mvc\Plugin\FlashMessenger;
 
 class ProductController extends AbstractActionController{
     
@@ -85,20 +86,19 @@ class ProductController extends AbstractActionController{
         $jsonImage = json_encode($arrayImage);
         $data['image'] = $jsonImage;
         $data['update_at'] = date('Y-m-d',time());
-        //id_url
-        $url = $this->table->saveUrl();
-        print_r($url);
-        return false;
-        ///////////////////
-        $data['id_url'] = 1;
-
+        
+        $alias = changeTitle($data['name']);
+        $data['id_url'] = $this->table->saveUrl($alias);
+        
         $product = new Products;
         $product->exchangeArray($data);
         $this->table->saveProduct($product);
-        // return $this->redirect()->toRoute('products',[
-        //     'controller'=>'product',
-        //     'action'=>'index'
-        // ]);
+
+        $this->flashMessenger()->addSuccessMessage('Thêm thành công');
+        return $this->redirect()->toRoute('products',[
+            'controller'=>'product',
+            'action'=>'index'
+        ]);
 
     }
     

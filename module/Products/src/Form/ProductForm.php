@@ -76,7 +76,8 @@ class ProductForm extends Form{
                 ]
             ],
             'attributes'=>[
-                'class'=>'form-control'
+                'class'=>'form-control',
+                'id'=>'detail'
             ]
         ]);
 

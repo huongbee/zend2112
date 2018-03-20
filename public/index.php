@@ -38,4 +38,6 @@ if (file_exists(__DIR__ . '/../config/development.config.php')) {
 
 define('FILE_PATH', __DIR__.'/img/');
  
+require  'helper/functions.php';
+
 Application::init($appConfig)->run();
