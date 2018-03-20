@@ -118,10 +118,19 @@ class ProductController extends AbstractActionController{
             ]);
         }
         //print_r($product);return false;
+        $form = new ProductForm('edit');
 
-        $form = new ProductForm;
+        $types = $this->table->getAllType();
+
+        $arrayType = [];
+        foreach($types as $type){
+            $arrayType[$type['id']] = $type['name'];
+        }
+        $form->get('id_type')->setValueOptions($arrayType);
+
+
         $form->bind($product);
-        return new ViewModel(['form'=>$form]);
+        return new ViewModel(['form'=>$form,'product'=>$product]);
     }
 
     function deleteAction(){

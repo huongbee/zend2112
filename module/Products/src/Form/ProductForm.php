@@ -14,7 +14,9 @@ use Zend\Form\Element\Checkbox;
 
 class ProductForm extends Form{
 
-    function __construct(){
+    public $action;
+    function __construct($action='add'){
+        $this->action = $action;
         parent::__construct();
 
         //type
@@ -210,15 +212,26 @@ class ProductForm extends Form{
 
         //btn
 
-        $this->add([
-            'type'=>'Submit',
-            'name'=>'btnSubmit',
-            'attributes'=>[
-                'class'=>'btn btn-primary',
-                'value'=>'Add'
-            ]
-        ]);
-
+        if($this->action =='add'){
+            $this->add([
+                'type'=>'Submit',
+                'name'=>'btnSubmit',
+                'attributes'=>[
+                    'class'=>'btn btn-primary',
+                    'value'=>'Add'
+                ]
+            ]);
+        }
+        else{
+            $this->add([
+                'type'=>'Submit',
+                'name'=>'btnSubmit',
+                'attributes'=>[
+                    'class'=>'btn btn-primary',
+                    'value'=>'Update'
+                ]
+            ]);
+        }
         $this->filterForm();
     }
 
