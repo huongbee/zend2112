@@ -1,18 +1,21 @@
 <?php
-namespace User\Service\Factory;
-use User\Service\UserManager;
+namespace User\Controller\Factory;
+use User\Controller\UserController;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class UserManagerFactory implements FactoryInterface
+
+class UserControllerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $entityManager = $container->get(\Doctrine\ORM\EntityManager::class);
-        return new UserManager($entityManager);
+        $userManager = $container->get(\User\Service\UserManger::class);
+        return new UserController($entityManager, $userManager );
     }
 }
+
+
+
 
 ?>
