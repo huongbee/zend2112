@@ -10,7 +10,7 @@ class UserManagerFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $entityManager = $container->get(\Doctrine\ORM\EntityManager::class);
+        $entityManager = $container->get('doctrine.entitymanager.orm_default');
         return new UserManager($entityManager);
     }
 }

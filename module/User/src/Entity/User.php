@@ -1,50 +1,50 @@
 <?php
 namespace User\Entity;
 
-use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Mapping as Mapping;
 /**
- * @Entity
- * @Table(name="users")
+ * @Mapping\Entity
+ * @Mapping\Table(name="users")
  */
 
 class User{
 
     /** 
-     * @Id
-     * @Column(type="integer")
-     * @GeneratedValue
+     * @Mapping\Id
+     * @Mapping\Column(type="integer")
+     * @Mapping\GeneratedValue
      */
     protected $id;
     
-    /** @Column(type="string",unique=TRUE) */
+    /** @Mapping\Column(type="string",unique=TRUE) */
     protected $email;
 
-    /** @Column(type="string") */
+    /** @Mapping\Column(type="string") */
     protected $password;
     
-    /** @Column(type="string") */
+    /** @Mapping\Column(type="string") */
     protected $fullname;
 
     
-    /** @Column(type="date") */
+    /** @Mapping\Column(type="date") */
     protected $birthdate;
     
-    /** @Column(type="string") */    
+    /** @Mapping\Column(type="string") */    
     protected $gender;
 
-    /** @Column(type="tring") */
+    /** @Mapping\Column(type="tring") */
     protected $address;
     
-    /** @Column(type="string") */    
+    /** @Mapping\Column(type="string") */    
     protected $phone;
 
-    /** @Column(type="boolean") */
+    /** @Mapping\Column(type="boolean") */
     protected $role;
     
-    /** @Column(type="string") */
+    /** @Mapping\Column(type="string") */
     protected $token;
 
-    /** @Column(type="datetime",name="created_at") */
+    /** @Mapping\Column(type="datetime",name="created_at") */
     protected $createdAt;
 
 
