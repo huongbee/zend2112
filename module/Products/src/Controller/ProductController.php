@@ -130,11 +130,86 @@ class ProductController extends AbstractActionController{
 
 
         $form->bind($product);
-        return new ViewModel(['form'=>$form,'product'=>$product]);
+
+        $request = $this->getRequest();
+        if(!$request->isPost()){
+            return new ViewModel(['form'=>$form,'product'=>$product]);
+        }
+        
+        $data = $request->getPost()->toArray();
+        $file = $request->getFiles()->toArray();
+
+        $data = array_merge($data,$file);
+
+        if($data['image'][0]['error']>0){
+            $data['image'] = $product->image;
+        }
+        else{
+            //upload ảnh mới
+            $arrayImage = [];
+            foreach($data['image'] as $image){
+                $newName = time().'-'.$image['name'];
+                $arrayImage[] = $newName;
+                $rename = new Rename([
+                    'target'=>FILE_PATH.'images/'.$newName,
+                    'overwrite'=>true
+                ]);
+                $rename->filter($image);
+            }
+            $jsonImage = json_encode($arrayImage);
+            $data['image'] = $jsonImage;
+        }
+        
+        $data['id_url'] = $product->id_url;
+        $data['update_at'] = date('Y-m-d',time());
+
+        $alias = changeTitle($data['name']);
+        $this->table->updateUrl($alias,$product->id_url);
+
+        $product = new Products;
+        $product->exchangeArray($data);
+
+        $this->table->saveProduct($product,$id);
+
+        $this->flashMessenger()->addSuccessMessage('Update thành công');
+        return $this->redirect()->toRoute('products',[
+            'controller'=>'product',
+            'action'=>'index'
+        ]);
+        
     }
 
     function deleteAction(){
+        $id = (int)$this->params()->fromRoute('page'); //id
+        $flag = true;
+        if($id===0) $flag = false;
 
+        $product = $this->table->findProduct($id);
+        if(!$product) $flag = false;
+
+        if(!$flag){
+            $this->flashMessenger()->addWarningMessage('Không tìm thấy sản phẩm');
+            return $this->redirect()->toRoute('products',[
+                'controller'=>'product',
+                'action'=>'index'
+            ]);
+        }
+        $request = $this->getRequest();
+        if(!$request->isPost()){
+            return new ViewModel([
+                'id'=>$id,
+                'product'=>$product
+            ]);
+        }
+        $btn = $request->getPost('del', 'No');
+        if($btn=='Yes'){
+            $this->table->deleteProduct($id);
+            $this->flashMessenger()->addSuccessMessage('Xoá thành công');
+        }
+        return $this->redirect()->toRoute('products',[
+            'controller'=>'product',
+            'action'=>'index'
+        ]);
     }
 }
 

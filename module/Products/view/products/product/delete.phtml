@@ -7,6 +7,17 @@
     <title>Delete</title>
 </head>
 <body>
-    <h2>Delete page</h2>
+    <h2>Xoá sản phẩm <?=$this->escapeHtml($product->name)?> ?</h2>
+    <form action="<?=$this->url('products',[
+        'controller'=>'product',
+        'action'=>'delete',
+        'page'=>$product->id
+    ])?>" method="post">
+
+        <input type="hidden" name="id" value="<?=(int)$product->id ?>" />
+        <input type="submit" class="btn btn-danger" name="del" value="Yes" />
+        <input type="submit" class="btn btn-success" name="del" value="No" />
+
+    </form>
 </body>
 </html>

@@ -30,7 +30,8 @@
         "zendframework/zend-inputfilter": "^2.8",
         "zendframework/zend-file": "^2.7",
         "zendframework/zend-paginator": "^2.8",
-        "zendframework/zend-mvc-plugin-flashmessenger": "^1.0"
+        "zendframework/zend-mvc-plugin-flashmessenger": "^1.0",
+        "doctrine/doctrine-orm-module": "^1.1"
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +39,8 @@
             "Started\\": "module/Started/src/",
             "Form\\": "module/Form/src/",
             "Database\\": "module/Database/src/",
-            "Products\\": "module/Products/src/"
+            "Products\\": "module/Products/src/",
+            "User\\": "module/User/src/"
         }
     },
     "autoload-dev": {

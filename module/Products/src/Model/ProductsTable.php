@@ -63,8 +63,21 @@ class ProductsTable {
         return $adapter->getDriver()->getConnection()->getLastGeneratedValue();
     }
 
-    function saveProduct(Products $data){
-        //print_r($data);die;
+    function updateUrl($alias, $id){
+        $adapter = $this->tabelGateway->getAdapter();
+
+        $sql = new Sql($adapter);
+        $update = $sql->update('page_url');
+        $update->set(
+            ['url'=>$alias]
+        )->where("id=$id");
+        $statement = $sql->prepareStatementForSqlObject($update);
+        $statement->execute();
+    }
+
+    function saveProduct(Products $data, $id=0){
+        // print_r($data);
+        // echo $id;die;
         $product = [
             'id_type' => $data->id_type,
             'id_url'=>$data->id_url,
@@ -81,8 +94,13 @@ class ProductsTable {
             'unit'=>$data->unit,
             'noibat'=>$data->noibat
         ];
-        $this->tabelGateway->insert($product);
-        return;
+        if($id==0){
+            return $this->tabelGateway->insert($product);
+        }
+        return $this->tabelGateway->update(
+            $product,
+            "id=$id"
+        );
     }
 
     function findProduct($id){
@@ -91,6 +109,21 @@ class ProductsTable {
         if(!$product) return false;
         return $product;
     }
+
+    function deleteProduct($id){
+        //$this->tabelGateway->delete(['id'=>$id]);
+        $product = [
+            'deleted'=>1
+        ];
+        return $this->tabelGateway->update(
+            $product,
+            "id=$id"
+        );
+    }
+
+    
+
+
 
     
 }

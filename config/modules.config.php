@@ -25,9 +25,12 @@ return [
     'Zend\Router',
     'Zend\Validator',
     'ZendDeveloperTools',
+    'DoctrineModule',
+    'DoctrineORMModule',
     'Application',
     'Started',
     'Form',
     'Database',
-    'Products'
+    'Products',
+    'User'
 ];
