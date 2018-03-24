@@ -38,9 +38,6 @@ return [
             __DIR__ . '/../view',
         ],
     ],
-    'service_manager'=>[
-        Service\UserManager::class => Service\UserManagerFactory::class
-    ],
     'doctrine'=>[
         'driver' => [
             // defines an annotation driver with two paths, and names it `my_annotation_driver`
@@ -61,5 +58,11 @@ return [
                 ],
             ],
         ],
-    ]
+    ],
+
+    'service_manager'=>[
+        'factories'=>[
+            Service\UserManager::class => Service\Factory\UserManagerFactory::class
+        ]
+    ],
 ];

@@ -5,7 +5,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 class UserController extends AbstractActionController{
 
-    private $entityManager, $userManager ;
+    private $entityManager;
+    private $userManager ;
     function __construct($entityManager, $userManager ){
         $this->entityManager = $entityManager;
         $this->userManager = $userManager;
