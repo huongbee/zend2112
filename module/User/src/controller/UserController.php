@@ -4,6 +4,7 @@ namespace User\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use User\Entity\User;
 use Zend\View\Model\ViewModel;
+use User\Form\UserForm;
 
 
 class UserController extends AbstractActionController{
@@ -27,6 +28,36 @@ class UserController extends AbstractActionController{
         //print_r($users);
         
         return new ViewModel(['users'=>$users]);
+    }
+
+    function addAction(){
+        $form = new UserForm('add');
+
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $data = $this->params()->fromPost();
+            $form->setData($data);
+            if($form->isValid()){
+                $data = $form->getData();
+                
+                // echo "<pre>";
+                // print_r($data);
+                // echo "</pre>";
+                // return false;
+
+                // validate pw vs confirm pw
+                //check Email Exist
+
+                $user = $this->userManager->insertUser($data);
+                $this->flashMessenger()->addSuccessMessage('Đăng kí thành công');
+                return $this->redirect()->toRoute('user',[
+                    'controller'=>'user',
+                    'action'=>'index'
+                ]);
+
+            }
+        }
+        return new ViewModel(['form'=>$form]);
     }
 }
 ?>

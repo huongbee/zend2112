@@ -84,7 +84,7 @@ class UserForm extends Form{
         //phone
         $this->add([
             'type'=>'Text',
-            'name'=>'Phone',
+            'name'=>'phone',
             'options'=>[
                 'label'=>'Điện thoại: ',
                 'label_attributes'=>[
@@ -100,7 +100,7 @@ class UserForm extends Form{
         //gender
         $this->add([
             'type'=>Select::class,
-            'name'=>'unit',
+            'name'=>'gender',
             'options'=>[
                 'label'=>'Giới tính: ',
                 'label_attributes'=>[
