@@ -29,6 +29,8 @@ return [
                     'user'     => 'root',
                     'password' => '',
                     'dbname'   => 'zend2112',
+                    'charset'  => 'utf8',
+                    'default_timezone'=> 'Asia/Ho_Chi_Minh'
                 ],
             ],
         ],

@@ -9,6 +9,10 @@ use Doctrine\ORM\Mapping as Mapping;
 
 class User{
 
+    function __construct(){
+    date_default_timezone_set();
+        
+    }
     /** 
      * @Mapping\Id
      * @Mapping\Column(type="integer")
@@ -32,7 +36,7 @@ class User{
     /** @Mapping\Column(type="string") */    
     protected $gender;
 
-    /** @Mapping\Column(type="tring") */
+    /** @Mapping\Column(type="string") */
     protected $address;
     
     /** @Mapping\Column(type="string") */    
