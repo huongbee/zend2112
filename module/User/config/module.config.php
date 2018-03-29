@@ -14,8 +14,8 @@ return [
                 'options' => [
                     'route'    => '[/:controller][/:action]',
                     'defaults' => [
-                        'controller'=>'user',
-                        'action'=>'index'
+                        //'controller'=>'user',
+                        //'action'=>'index'
                     ],
                     'constraints'=>[
                         //'page'=>'[0-9]+'

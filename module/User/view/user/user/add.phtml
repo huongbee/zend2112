@@ -2,6 +2,10 @@
 $form = $this->form;
 $form->setAttributes([
     'class'=>'form-horizontal',
+    'action'=>$this->url('user',[
+        'controller'=> 'user',
+        'action'=>'add'
+    ])
 ]);
 $fullname = $form->get('fullname');
 $email = $form->get('email');
@@ -19,6 +23,11 @@ $form->prepare();
     <div class="col-sm-12">
         <h2 class="text-center">Đăng kí thành viên</h2>
         <br>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4 my-message">
+                <?= $this->flashMessenger()->render('error',['alert','alert-danger']);?>
+            </div>
+        </div>
         <?=$this->form()->openTag($form)?>
         
         <div class="form-group">

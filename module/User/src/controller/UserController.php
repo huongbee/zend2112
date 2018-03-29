@@ -46,7 +46,23 @@ class UserController extends AbstractActionController{
                 // return false;
 
                 // validate pw vs confirm pw
+                if($data['confirm_password']!==$data['password']){
+                    $this->flashMessenger()->addErrorMessage('Mật khẩu không giống nhau');
+                    return $this->redirect()->toRoute('user',[
+                        'controller'=>'user',
+                        'action'=>'add'
+                    ]);  
+                }
+
                 //check Email Exist
+                $user = $this->userManager->checkEmailExists($data['email']);
+                if($user){
+                    $this->flashMessenger()->addErrorMessage('Email đã có người sử dụng');
+                    return $this->redirect()->toRoute('user',[
+                        'controller'=>'user',
+                        'action'=>'add'
+                    ]);  
+                }
 
                 $user = $this->userManager->insertUser($data);
                 $this->flashMessenger()->addSuccessMessage('Đăng kí thành công');

@@ -32,6 +32,11 @@ class UserManager {
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
+
+    function checkEmailExists($email){
+        $user = $this->entityManager->getRepository(User::class)->findOneByEmail($email);
+        return $user!==null ? true : false;
+    }
 }
 
 
