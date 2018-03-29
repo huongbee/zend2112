@@ -56,7 +56,9 @@ class UserController extends AbstractActionController{
 
                 //check Email Exist
                 $user = $this->userManager->checkEmailExists($data['email']);
-                if($user){
+
+                //var_dump($user); return false;
+                if(!$user){
                     $this->flashMessenger()->addErrorMessage('Email đã có người sử dụng');
                     return $this->redirect()->toRoute('user',[
                         'controller'=>'user',
@@ -89,7 +91,50 @@ class UserController extends AbstractActionController{
         }
         $form = new UserForm('edit');
 
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $data = $this->params()->fromPost();
+            $form->setData($data);
+            if($form->isValid()){
+                $data = $form->getData();
+                $check = $this->userManager->checkEmailExists($data['email'],$id);
+
+                // print_r($user);
+                // return false;
+                if($check){
+                    $user = $this->userManager->updateUser($user, $data);
+                    $this->flashMessenger()->addSuccessMessage('Cập nhật thành công');
+                    return $this->redirect()->toRoute('user',[
+                        'controller'=>'user',
+                        'action'=>'index'
+                    ]);
+                }
+                $this->flashMessenger()->addErrorMessage('Email đã có người sử dụng');
+                return $this->redirect()->toRoute('user',[
+                    'controller'=>'user',
+                    'action'=>'edit',
+                    'id'=>$id
+                ]);  
+            }
+            
+        }
+
+        $data = [
+            'fullname'=>$user->getFullname(),
+            'email' => $user->getEmail(),
+            'birthdate' => $user->getBirthdate(),
+            'gender'=>$user->getGender(),
+            'address' => $user->getAddress(),
+            'phone' => $user->getPhone()
+        ];
+        $form->setData($data);
+
         return new ViewModel(['form'=>$form,'user'=>$user]);
+    }
+    function deteleAction(){
+        $id = $this->params()->fromRoute();
+        echo $id;
+        return false;
     }
 }
 ?>

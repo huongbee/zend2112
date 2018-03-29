@@ -39,13 +39,61 @@
                     'action'=>'edit',
                     'id'=>$user->getId()
                 ])?>">Edit</a> | 
-                <a  href="<?=$this->url('products',[
-                    'controller'=>'product',
-                    'action'=>'delete',
-                    'id'=>$user->getId()
-                ])?>">Delete</a></td>
+                <a class="delete-user" data-id="<?=$user->getId()?>" data-name="<?=$user->getFullname()?>"> Delete</a></td>
             </tr>
             <?php endforeach?>
             
         </tbody>
     </table>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+    
+      <div class="modal-body">
+        <p>Bạn có chắc chắn xoá user <b class="name-user">....</b> </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="btnOk" >OK</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('.delete-user').click(function(){
+        var id = $(this).attr('data-id')
+        var name = $(this).attr('data-name')
+        $('.name-user').html(name)
+        $('#myModal').modal('show')
+
+        $('#btnOk').click(function(){
+            var url = "<?=$this->url('user',[
+                    'controller'=>'user',
+                    'action' => 'delete',
+                    'id' => 'id'
+                ])?>"
+            url = url.replace('id',id)
+            //console.log(url)
+            $.ajax({
+                url:url,
+                // data:{
+                //     id: id // bien gui di:id o line 72
+                // },
+                type:"GET",
+                success:function(res){
+                    console.log(res)
+                }
+            })
+        })
+
+    })
+})
+</script>
