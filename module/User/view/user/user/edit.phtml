@@ -1,0 +1,97 @@
+<?php
+$form = $this->form;
+$form->setAttributes([
+    'class'=>'form-horizontal',
+    'action'=>$this->url('user',[
+        'controller'=> 'user',
+        'action'=>'edit',
+        'id'=>$user->getId()
+    ])
+]);
+$fullname = $form->get('fullname');
+$email = $form->get('email');
+$birthdate = $form->get('birthdate');
+$gender = $form->get('gender');
+$address = $form->get('address');
+$phone = $form->get('phone');
+$btn = $form->get('btnSubmit');
+$form->prepare();
+
+?>
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="text-center">Cập nhật thông tin User <b><?=$user->getFullname()?></b></h2>
+        <br>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4 my-message">
+                <?= $this->flashMessenger()->render('error',['alert','alert-danger']);?>
+            </div>
+        </div>
+        <?=$this->form()->openTag($form)?>
+        
+        <div class="form-group">
+            <?=$this->formLabel($fullname)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($fullname);
+                echo $this->formElementErrors($fullname);
+                ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?=$this->formLabel($email)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($email);
+                echo $this->formElementErrors($email);
+                ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?=$this->formLabel($birthdate)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($birthdate);
+                echo $this->formElementErrors($birthdate);
+                ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?=$this->formLabel($phone)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($phone);
+                echo $this->formElementErrors($phone);
+                ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?=$this->formLabel($address)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($address);
+                echo $this->formElementErrors($address);
+                ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <?=$this->formLabel($gender)?>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formElement($gender);
+                echo $this->formElementErrors($gender);
+                ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <?= $this->formElement($btn);?>
+            </div>
+        </div>
+
+        <?=$this->form()->closeTag()?>
+    </div>
+</div>

@@ -47,7 +47,7 @@ class UserForm extends Form{
             ],
             'attributes'=>[
                 'class'=>'form-control',
-                
+                'placeholder'=>'Nhập email'
             ]
         ]);
 
@@ -117,37 +117,38 @@ class UserForm extends Form{
             ]
         ]);
 
-        //password
-        $this->add([
-            'type'=>'Password',
-            'name'=>'password',
-            'options'=>[
-                'label'=>'Mật khẩu: ',
-                'label_attributes'=>[
-                    'class'=>"control-label col-sm-2"
+        if($this->action =='add'){
+            //password
+            $this->add([
+                'type'=>'Password',
+                'name'=>'password',
+                'options'=>[
+                    'label'=>'Mật khẩu: ',
+                    'label_attributes'=>[
+                        'class'=>"control-label col-sm-2"
+                    ]
+                ],
+                'attributes'=>[
+                    'class'=>'form-control',
+                    'placeholder'=>"Nhập mật khẩu"
                 ]
-            ],
-            'attributes'=>[
-                'class'=>'form-control',
-                'placeholder'=>"Nhập mật khẩu"
-            ]
-        ]);
-        //confirm_password
-        $this->add([
-            'type'=>'Password',
-            'name'=>'confirm_password',
-            'options'=>[
-                'label'=>'Nhập lại mật khẩu: ',
-                'label_attributes'=>[
-                    'class'=>"control-label col-sm-2"
+            ]);
+            //confirm_password
+            $this->add([
+                'type'=>'Password',
+                'name'=>'confirm_password',
+                'options'=>[
+                    'label'=>'Nhập lại mật khẩu: ',
+                    'label_attributes'=>[
+                        'class'=>"control-label col-sm-2"
+                    ]
+                ],
+                'attributes'=>[
+                    'class'=>'form-control',
+                    'placeholder'=>"Nhập lại mật khẩu"
                 ]
-            ],
-            'attributes'=>[
-                'class'=>'form-control',
-                'placeholder'=>"Nhập lại mật khẩu"
-            ]
-        ]);
-
+            ]);
+        }
         //btn
 
         if($this->action =='add'){

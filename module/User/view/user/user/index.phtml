@@ -37,12 +37,12 @@
                 <a  href="<?=$this->url('user',[
                     'controller'=>'user',
                     'action'=>'edit',
-                    'page'=>$user->getId()
+                    'id'=>$user->getId()
                 ])?>">Edit</a> | 
                 <a  href="<?=$this->url('products',[
                     'controller'=>'product',
                     'action'=>'delete',
-                    'page'=>$user->getId()
+                    'id'=>$user->getId()
                 ])?>">Delete</a></td>
             </tr>
             <?php endforeach?>

@@ -37,6 +37,10 @@ class UserManager {
         $user = $this->entityManager->getRepository(User::class)->findOneByEmail($email);
         return $user!==null ? true : false;
     }
+    function findUserByid($id){
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        return $user!==null ? $user : false;
+    }
 }
 
 

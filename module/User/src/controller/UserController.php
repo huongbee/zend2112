@@ -75,5 +75,21 @@ class UserController extends AbstractActionController{
         }
         return new ViewModel(['form'=>$form]);
     }
+
+    function editAction(){
+        $id = $this->params()->fromRoute('id',0);
+        $user = $this->userManager->findUserByid($id);
+        
+        if($id==0 || !$user){
+            $this->flashMessenger()->addWarningMessage('Không tìm thấy user');
+            return $this->redirect()->toRoute('user',[
+                'controller'=>'user',
+                'action'=>'index'
+            ]);
+        }
+        $form = new UserForm('edit');
+
+        return new ViewModel(['form'=>$form,'user'=>$user]);
+    }
 }
 ?>
