@@ -28,7 +28,7 @@
             foreach($this->users as $user):
             ?>
 
-            <tr>
+            <tr id="user-<?=$user->getId()?>">
                 <td><?=$stt++?></td>
                 <td><?=$user->getFullname()?></td>
                 <td><?=$user->getEmail()?></td>
@@ -56,8 +56,8 @@
         <p>Bạn có chắc chắn xoá user <b class="name-user">....</b> </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" id="btnOk" >OK</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" id="btnOk">OK</button>
+        <button type="button" class="btn btn-default" id="btnCancel" data-dismiss="modal">Cancel</button>
       </div>
     </div>
 
@@ -69,6 +69,9 @@
 <script>
 $(document).ready(function(){
     $('.delete-user').click(function(){
+        $('.modal-body').html('<p>Bạn có chắc chắn xoá user <b class="name-user">....</b> </p>')
+        $('#btnOk').show()
+        $('#btnCancel').html('Cancel')
         var id = $(this).attr('data-id')
         var name = $(this).attr('data-name')
         $('.name-user').html(name)
@@ -84,12 +87,17 @@ $(document).ready(function(){
             //console.log(url)
             $.ajax({
                 url:url,
-                // data:{
-                //     id: id // bien gui di:id o line 72
-                // },
                 type:"GET",
                 success:function(res){
-                    console.log(res)
+                    if(res.result =='success'){
+                        $('.modal-body').html('Xoá thành công')
+                        $('#user-'+id).hide()
+                    }
+                    else{
+                        $('.modal-body').html('Xoá không thành công')
+                    }
+                    $('#btnOk').hide()
+                    $('#btnCancel').html('OK')
                 }
             })
         })
