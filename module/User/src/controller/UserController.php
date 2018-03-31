@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use User\Entity\User;
 use Zend\View\Model\ViewModel;
 use User\Form\UserForm;
+use User\Form\ResetPasswordForm;
 use Zend\View\Model\JsonModel;
 
 
@@ -143,6 +144,21 @@ class UserController extends AbstractActionController{
             $result = "success";
         }
         return new JsonModel(['result'=>$result]);
+    }
+
+    function changePasswordAction(){
+        $id = $this->params()->fromRoute('id',0);
+        $user = $this->userManager->findUserByid($id);
+        
+        if($id==0 || !$user){
+            $this->flashMessenger()->addWarningMessage('Không tìm thấy user');
+            return $this->redirect()->toRoute('user',[
+                'controller'=>'user',
+                'action'=>'index'
+            ]);
+        }
+        $form = new ResetPasswordForm;
+        return new ViewModel(['form'=>$form,'user'=>$user]);
     }
 }
 ?>
