@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use User\Entity\User;
 use Zend\View\Model\ViewModel;
 use User\Form\UserForm;
+use Zend\View\Model\JsonModel;
 
 
 class UserController extends AbstractActionController{
@@ -135,14 +136,13 @@ class UserController extends AbstractActionController{
         $id = $this->params()->fromRoute('id');
         $user = $this->userManager->findUserByid($id);
         if($user == false){
-            echo "error";
+            $result = 'error';
         }
         else{
             $this->userManager->removeUser($user);
-            echo "success";
+            $result = "success";
         }
-        return false;
-        
+        return new JsonModel(['result'=>$result]);
     }
 }
 ?>
