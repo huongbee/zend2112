@@ -131,10 +131,18 @@ class UserController extends AbstractActionController{
 
         return new ViewModel(['form'=>$form,'user'=>$user]);
     }
-    function deteleAction(){
-        $id = $this->params()->fromRoute();
-        echo $id;
+    function deleteAction(){
+        $id = $this->params()->fromRoute('id');
+        $user = $this->userManager->findUserByid($id);
+        if($user == false){
+            echo "error";
+        }
+        else{
+            $this->userManager->removeUser($user);
+            echo "success";
+        }
         return false;
+        
     }
 }
 ?>
