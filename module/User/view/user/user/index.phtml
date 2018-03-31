@@ -34,12 +34,20 @@
                 <td><?=$user->getEmail()?></td>
                 <td><?=$user->getBirthdate()->format('d-m-Y')?></td>
                 <td>
-                <a  href="<?=$this->url('user',[
+                    <a  href="<?=$this->url('user',[
+                        'controller'=>'user',
+                        'action'=>'edit',
+                        'id'=>$user->getId()
+                    ])?>">Edit</a> 
+                    | 
+                    <a class="delete-user" data-id="<?=$user->getId()?>" data-name="<?=$user->getFullname()?>"> Delete</a>
+                    |
+                    <a  href="<?=$this->url('user',[
                     'controller'=>'user',
-                    'action'=>'edit',
+                    'action'=>'changePassword',
                     'id'=>$user->getId()
-                ])?>">Edit</a> | 
-                <a class="delete-user" data-id="<?=$user->getId()?>" data-name="<?=$user->getFullname()?>"> Delete</a></td>
+                ])?>">Change Password</a>
+                </td>
             </tr>
             <?php endforeach?>
             

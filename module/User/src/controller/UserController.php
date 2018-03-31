@@ -158,6 +158,47 @@ class UserController extends AbstractActionController{
             ]);
         }
         $form = new ResetPasswordForm;
+
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $data = $this->params()->fromPost();
+            $form->setData($data);
+            if($form->isValid()){
+                $data = $form->getData();
+
+                // validate pw vs confirm pw
+                if($data['confirm_password']!==$data['password']){
+                    $this->flashMessenger()->addErrorMessage('Mật khẩu không giống nhau');
+                    return $this->redirect()->toRoute('user',[
+                        'controller'=>'user',
+                        'action'=>'changePassword',
+                        'id'=>$id
+                    ]);  
+                }
+                $securePass = $user->getPassword();
+                $oldPassword = $data['old_password'];
+                if($this->userManager->verifyPassword($oldPassword,$securePass)){
+                    // luu mk mooi
+                    $user = $this->userManager->changePassword($user, $data['password']);
+                    $this->flashMessenger()->addSuccessMessage('Mật khẩu đã thay đổi');
+                    return $this->redirect()->toRoute('user',[
+                        'controller'=>'user',
+                        'action'=>'index'
+                    ]);  
+                    //$2y$10$Q.UhDI.dbUkrQXN3RfcoHOmkRFfmqK2cua/9jNFkdYaO/t0WvMrhy 111111
+                    //$2y$10$dJEa.G4VcIDw47JNHoDu9ODg/a39gMnhjpub2gFfnbgFb/9FpUNo2 11111111
+                }
+                else{
+                    $this->flashMessenger()->addErrorMessage('Mật khẩu cũ chưa chính xác');
+                    return $this->redirect()->toRoute('user',[
+                        'controller'=>'user',
+                        'action'=>'changePassword',
+                        'id'=>$id
+                    ]);  
+                }
+            }
+            
+        }
         return new ViewModel(['form'=>$form,'user'=>$user]);
     }
 }
