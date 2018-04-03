@@ -232,5 +232,11 @@ class UserController extends AbstractActionController{
             'form'=>$form
         ]);
     }
+
+    function setPasswordAction(){
+        $token = $this->params()->fromRoute('token',null);
+        echo $token;
+        return false;
+    } 
 }
 ?>
