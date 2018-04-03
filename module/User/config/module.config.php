@@ -22,6 +22,19 @@ return [
                     ]
                 ],
             ],
+            'forget-password' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/forget-password',
+                    'defaults' => [
+                        'controller'=>'user',
+                        'action'=>'forgetPassword'
+                    ],
+                    'constraints'=>[
+                        //'page'=>'[0-9]+'
+                    ]
+                ],
+            ],
             
         ],
     ],

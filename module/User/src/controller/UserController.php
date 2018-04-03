@@ -6,6 +6,7 @@ use User\Entity\User;
 use Zend\View\Model\ViewModel;
 use User\Form\UserForm;
 use User\Form\ResetPasswordForm;
+use User\Form\ForgetPasswordForm;
 use Zend\View\Model\JsonModel;
 
 
@@ -200,6 +201,35 @@ class UserController extends AbstractActionController{
             
         }
         return new ViewModel(['form'=>$form,'user'=>$user]);
+    }
+
+    function forgetPasswordAction(){
+        $form = new ForgetPasswordForm();
+
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $data = $this->params()->fromPost();
+            $form->setData($data);
+            if($form->isValid()){
+                //check email exits
+                if($this->userManager->checkEmailExists($data['email'])){
+                    //gui mail
+                    echo $data['email'];
+                    return false;
+                }
+                else{
+                    $this->flashMessenger()->addErrorMessage('Không tìm thấy email');
+                    return $this->redirect()->toRoute('forget-password',[
+                        'controller'=>'user',
+                        'action'=>'forgetPassword'
+                    ]);
+                }
+            
+            }
+        }
+        return new ViewModel([
+            'form'=>$form
+        ]);
     }
 }
 ?>
