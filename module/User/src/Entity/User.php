@@ -48,6 +48,10 @@ class User{
     /** @Mapping\Column(type="string") */
     protected $token;
 
+    /** @Mapping\Column(type="datetime",name="token_date") */
+    protected $tokenDate;
+
+
     /** @Mapping\Column(type="datetime",name="created_at") */
     protected $createdAt;
 
@@ -118,6 +122,14 @@ class User{
     public function getToken(){
         return $this->token;
     }
+
+    public function setTokenDate($tokenDate){
+        $this->tokenDate = $tokenDate;
+    }
+    public function getTokenDate(){
+        return $this->tokenDate;
+    }
+
     public function setCreatedAt($createdAt){
         $this->createdAt = $createdAt;
     }

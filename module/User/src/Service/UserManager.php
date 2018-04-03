@@ -2,6 +2,10 @@
 namespace User\Service;
 use User\Entity\User;
 use Zend\Crypt\Password\Bcrypt;
+use Zend\Math\Rand;
+use Zend\Mail\Message;
+use Zend\Mail\Transport\Smtp as SmtpTransport;
+use Zend\Mail\Transport\SmtpOptions;
 
 class UserManager {
 
@@ -85,6 +89,55 @@ class UserManager {
 
         $this->entityManager->flush();
         return $user;
+    }
+
+
+    function updateToken($user){
+        //update token for user
+        $token = Rand::getString(40,"0987654321wertyuioplkgfdsazxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM");
+        $user->setToken($token);
+
+        $tokenDate = new \DateTime(date('Y-m-d H:i:s'));
+        $tokenDate->format('Y-m-d H:i:s');
+        $user->setTokenDate($tokenDate);
+
+        $this->entityManager->flush();
+        return $user;
+    }
+
+    function sendMailWithToken($user){
+        $token = $user->getToken();
+        $http = isset($_SERVER['https']) ? 'https://': "http://";
+        $domail = $_SERVER['HTTP_HOST'];
+        $link = $http.$domail.'/zend2112/public/set-password/'.$token;
+
+        $messageBody = "Chào bạn ".$user->getFullname(). ',</br>';
+        $messageBody.="Bạn vui lòng chọn vào link dưới để đặt lại mật khẩu:</br>";
+        $messageBody.=$link;
+        $messageBody.="</br></br>Thanks and Best Regards!";
+
+
+        $message = new Message();
+        $message->addFrom('huonghuong08.php@gmail.com', 'Zend2112 - Forget Password');
+        $message->addTo($user->getEmail());
+        $message->setSubject('Forget Password');
+        $message->setBody($messageBody);
+
+        // Setup SMTP transport
+        $transport = new SmtpTransport();
+        $options   = new SmtpOptions([
+            'name' => 'smtp.gmail.com',
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'connection_class'=>'login',
+            'connection_config'=>[
+                'username' =>'huonghuong08.php@gmail.com',
+                'password' => '0123456789000',
+                'ssl'      => 'tls',
+            ]
+        ]);
+        $transport->setOptions($options);
+        $transport->send($message);
     }
 }
 

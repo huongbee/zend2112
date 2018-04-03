@@ -212,18 +212,18 @@ class UserController extends AbstractActionController{
             $form->setData($data);
             if($form->isValid()){
                 //check email exits
-                if($this->userManager->checkEmailExists($data['email'])){
-                    //gui mail
-                    echo $data['email'];
-                    return false;
+                if(!$this->userManager->checkEmailExists($data['email'])){
+                    //update token 
+                    $user = $this->userManager->updateToken($user);
+                    $this->userManager->sendMailWithToken($user);
+                    $this->flashMessenger()->addSuccessMessage('Vui lòng kiểm tra hộp thư để đặt mật khẩu mới');
                 }
-                else{
-                    $this->flashMessenger()->addErrorMessage('Không tìm thấy email');
-                    return $this->redirect()->toRoute('forget-password',[
-                        'controller'=>'user',
-                        'action'=>'forgetPassword'
-                    ]);
-                }
+                else $this->flashMessenger()->addErrorMessage('Không tìm thấy email');
+                
+                return $this->redirect()->toRoute('forget-password',[
+                    'controller'=>'user',
+                    'action'=>'forgetPassword'
+                ]);
             
             }
         }
