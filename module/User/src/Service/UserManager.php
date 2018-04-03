@@ -6,12 +6,15 @@ use Zend\Math\Rand;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
 use Zend\Mail\Transport\SmtpOptions;
+use Zend\Mime\Message as MimeMessage;
+use Zend\Mime\Part as MimePart;
 
 class UserManager {
 
     private $entityManager;
     
     function __construct($entityManager){
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         $this->entityManager = $entityManager;
     }
     function insertUser($data = []){
@@ -52,6 +55,10 @@ class UserManager {
     }
     function findUserByid($id){
         $user = $this->entityManager->getRepository(User::class)->find($id);
+        return $user!==null ? $user : false;
+    }
+    function findUserByEmail($email){
+        $user = $this->entityManager->getRepository(User::class)->findOneByEmail($email);
         return $user!==null ? $user : false;
     }
 
@@ -96,6 +103,7 @@ class UserManager {
         //update token for user
         $token = Rand::getString(40,"0987654321wertyuioplkgfdsazxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM");
         $user->setToken($token);
+        //31l4Fpf6v0fOYys2l2T1cxUxJan0KlNReerBkCc2
 
         $tokenDate = new \DateTime(date('Y-m-d H:i:s'));
         $tokenDate->format('Y-m-d H:i:s');
@@ -112,16 +120,23 @@ class UserManager {
         $link = $http.$domail.'/zend2112/public/set-password/'.$token;
 
         $messageBody = "Chào bạn ".$user->getFullname(). ',</br>';
-        $messageBody.="Bạn vui lòng chọn vào link dưới để đặt lại mật khẩu:</br>";
+        $messageBody.="Bạn vui lòng chọn vào link dưới để đặt lại mật khẩu:";
         $messageBody.=$link;
-        $messageBody.="</br></br>Thanks and Best Regards!";
+        $messageBody.=".</br></br>Thanks and Best Regards!";
+
+        $html = new MimePart($messageBody);
+        $html->type = "text/html";
+
+        $body = new MimeMessage();
+        $body->setParts(array($html));
 
 
         $message = new Message();
+        $message->setEncoding("UTF-8");
         $message->addFrom('huonghuong08.php@gmail.com', 'Zend2112 - Forget Password');
         $message->addTo($user->getEmail());
         $message->setSubject('Forget Password');
-        $message->setBody($messageBody);
+        $message->setBody($body);
 
         // Setup SMTP transport
         $transport = new SmtpTransport();

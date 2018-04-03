@@ -214,12 +214,13 @@ class UserController extends AbstractActionController{
                 //check email exits
                 if(!$this->userManager->checkEmailExists($data['email'])){
                     //update token 
+                    $user = $this->userManager->findUserByEmail($data['email']);
                     $user = $this->userManager->updateToken($user);
                     $this->userManager->sendMailWithToken($user);
                     $this->flashMessenger()->addSuccessMessage('Vui lòng kiểm tra hộp thư để đặt mật khẩu mới');
                 }
                 else $this->flashMessenger()->addErrorMessage('Không tìm thấy email');
-                
+
                 return $this->redirect()->toRoute('forget-password',[
                     'controller'=>'user',
                     'action'=>'forgetPassword'
