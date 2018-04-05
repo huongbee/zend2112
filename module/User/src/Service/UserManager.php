@@ -119,10 +119,10 @@ class UserManager {
         $domail = $_SERVER['HTTP_HOST'];
         $link = $http.$domail.'/zend2112/public/set-password/'.$token;
 
-        $messageBody = "Chào bạn ".$user->getFullname(). ',</br>';
-        $messageBody.="Bạn vui lòng chọn vào link dưới để đặt lại mật khẩu:";
+        $messageBody = "Chào bạn ".$user->getFullname(). ',\n';
+        $messageBody.="Bạn vui lòng chọn vào link dưới để đặt lại mật khẩu:\n";
         $messageBody.=$link;
-        $messageBody.=".</br></br>Thanks and Best Regards!";
+        $messageBody.=".\nThanks and Best Regards!";
 
         $html = new MimePart($messageBody);
         $html->type = "text/html";
@@ -153,6 +153,19 @@ class UserManager {
         ]);
         $transport->setOptions($options);
         $transport->send($message);
+    }
+
+    function checkResetPasswordToken($token){
+        $user = $this->entityManager->getRepository(User::class)->findOneByToken($token);
+        if(!$user) return false;
+        $tokenDate = $user->getTokenDate();
+        $tokenDate = $tokenDate->getTimestamp();
+        
+        $now = new \DateTime('now');
+        $now = $now->getTimestamp();
+        if($now - $tokenDate > 86400) //24*60*60
+            return false;
+        return true;
     }
 }
 

@@ -10,24 +10,28 @@ use Zend\Validator\NotEmpty;
 
 class ResetPasswordForm extends Form{
 
-    function __construct(){
+    private $action = 'change-pw';
+    function __construct($action = 'change-pw'){
+        $this->action = $action;
         parent::__construct();
 
-        //old_password
-        $this->add([
-            'type'=>'Password',
-            'name'=>'old_password',
-            'options'=>[
-                'label'=>'Mật khẩu cũ: ',
-                'label_attributes'=>[
-                    'class'=>"control-label col-sm-4"
+        if($this->action == 'change-pw'){
+            //old_password
+            $this->add([
+                'type'=>'Password',
+                'name'=>'old_password',
+                'options'=>[
+                    'label'=>'Mật khẩu cũ: ',
+                    'label_attributes'=>[
+                        'class'=>"control-label col-sm-4"
+                    ]
+                ],
+                'attributes'=>[
+                    'class'=>'form-control',
+                    'placeholder'=>"Nhập mật khẩu cũ"
                 ]
-            ],
-            'attributes'=>[
-                'class'=>'form-control',
-                'placeholder'=>"Nhập mật khẩu cũ"
-            ]
-        ]);
+            ]);
+        }
         //password
         $this->add([
             'type'=>'Password',

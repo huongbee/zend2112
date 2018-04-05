@@ -235,8 +235,21 @@ class UserController extends AbstractActionController{
 
     function setPasswordAction(){
         $token = $this->params()->fromRoute('token',null);
-        echo $token;
-        return false;
+        
+        if(!$this->userManager->checkResetPasswordToken($token)){
+            $this->flashMessenger()->addErrorMessage('Đường dẫn bạn nhập vào không hợp lệ hoặc đã hết hạn sử dụng. Vui lòng kiểm tra lại');
+
+            return $this->redirect()->toRoute('forget-password',[
+                'controller'=>'user',
+                'action'=>'forgetPassword'
+            ]);
+        }
+        $form = new ResetPasswordForm('forget-pw');
+
+        $view = new ViewModel(['form'=>$form]);
+        $view->setTemplate('user/user/reset-password');
+        return $view;
     } 
+
 }
 ?>
