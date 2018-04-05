@@ -236,17 +236,53 @@ class UserController extends AbstractActionController{
     function setPasswordAction(){
         $token = $this->params()->fromRoute('token',null);
         
-        if(!$this->userManager->checkResetPasswordToken($token)){
-            $this->flashMessenger()->addErrorMessage('Đường dẫn bạn nhập vào không hợp lệ hoặc đã hết hạn sử dụng. Vui lòng kiểm tra lại');
-
-            return $this->redirect()->toRoute('forget-password',[
-                'controller'=>'user',
-                'action'=>'forgetPassword'
-            ]);
-        }
         $form = new ResetPasswordForm('forget-pw');
 
-        $view = new ViewModel(['form'=>$form]);
+        $request = $this->getRequest();
+        if($token == null || $request->isGet()){
+            
+            if($token !== null && !$this->userManager->checkResetPasswordToken($token)){
+                $this->flashMessenger()->addErrorMessage('Đường dẫn bạn nhập vào không hợp lệ hoặc đã hết hạn sử dụng. Vui lòng kiểm tra lại');
+    
+                return $this->redirect()->toRoute('forget-password',[
+                    'controller'=>'user',
+                    'action'=>'forgetPassword'
+                ]);
+            }
+        }
+        if($request->isPost()){
+            //echo $token; return false;
+            $data = $this->params()->fromPost();
+            $token = $data['token'];
+
+            $form->setData($data);
+            if($form->isValid()){
+                $data = $form->getData();
+
+                // validate pw vs confirm pw
+                if($data['confirm_password']!==$data['password']){
+                    $this->flashMessenger()->addErrorMessage('Mật khẩu không giống nhau');
+                    return $this->redirect()->toRoute('user',[
+                        'controller'=>'user',
+                        'action'=>'setPassword',
+                        'token'=>$token
+                    ]);  
+                }
+                $user = $this->userManager->findUserByToken($token);
+            
+                $this->userManager->changePassword($user, $data['password']);
+                $this->userManager->deleteToken($user);
+
+                $this->flashMessenger()->addSuccessMessage('Mật khẩu đã thay đổi');
+                return $this->redirect()->toRoute('user',[
+                    'controller'=>'user',
+                    'action'=>'index'
+                ]);  
+            }
+            
+        }
+
+        $view = new ViewModel(['form'=>$form,'token'=>$token]);
         $view->setTemplate('user/user/reset-password');
         return $view;
     } 

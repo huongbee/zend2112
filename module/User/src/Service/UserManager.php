@@ -155,18 +155,34 @@ class UserManager {
         $transport->send($message);
     }
 
-    function checkResetPasswordToken($token){
+
+    function findUserByToken($token){
+        if($token==null) return false;
         $user = $this->entityManager->getRepository(User::class)->findOneByToken($token);
+        return $user!==null ? $user : false;
+    }
+
+    function checkResetPasswordToken($token){
+        $user = $this->findUserByToken($token);
+        //return $user;
         if(!$user) return false;
         $tokenDate = $user->getTokenDate();
         $tokenDate = $tokenDate->getTimestamp();
-        
+
         $now = new \DateTime('now');
         $now = $now->getTimestamp();
         if($now - $tokenDate > 86400) //24*60*60
             return false;
         return true;
     }
+
+    function deleteToken($user){
+        $user->setTokenDate(null);
+        $user->setToken(null);
+        $this->entityManager->flush();
+        return $user;
+    }
+
 }
 
 
