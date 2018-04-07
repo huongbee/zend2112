@@ -6,6 +6,8 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 //use Zend\ServiceManager\Factory\InvokableFactory;
 use User\Controller\Factory\UserControllerFactory;
+use Zend\Authentication\AuthenticationService;
+
 return [
     'router' => [
         'routes' => [
@@ -53,7 +55,8 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\UserController::class => UserControllerFactory::class
+            Controller\UserController::class => UserControllerFactory::class,
+            Controller\AuthController::class => AuthControllerFactory::class
         ],
         'aliases'=>[
             'user'=>Controller\UserController::class
@@ -91,7 +94,10 @@ return [
 
     'service_manager'=>[
         'factories'=>[
-            Service\UserManager::class => Service\Factory\UserManagerFactory::class
+            Service\UserManager::class => Service\Factory\UserManagerFactory::class,
+            Service\AuthManager::class => Service\Factory\AuthManagerFactory::class,
+            Service\AuthAdapter::class => Service\Factory\AuthAdapterFactory::class,
+            AuthenticationService::class => Service\Factory\AuthenticationServiceFactory::class
         ]
     ],
 ];
