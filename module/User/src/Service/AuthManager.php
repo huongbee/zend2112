@@ -30,6 +30,15 @@ class AuthManager{
         return $result;
 
     }
+
+    function logout(){
+        if($this->authenticationService->hasIdentity()){
+            $this->authenticationService->clearIdentity();
+        }
+        else{
+            throw new \Exception('Bạn chưa đăng nhập');
+        }
+    }
 }
 
 ?>
