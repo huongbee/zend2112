@@ -36,7 +36,8 @@
         "zendframework/zend-crypt": "^3.2",
         "zendframework/zend-json": "^3.1",
         "zendframework/zend-mail": "^2.9",
-        "zendframework/zend-authentication": "^2.5"
+        "zendframework/zend-authentication": "^2.5",
+        "zendframework/zend-expressive-authentication-session": "^0.4.1"
     },
     "autoload": {
         "psr-4": {
