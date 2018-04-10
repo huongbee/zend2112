@@ -9,6 +9,8 @@ use User\Form\ResetPasswordForm;
 use User\Form\ForgetPasswordForm;
 use Zend\View\Model\JsonModel;
 use User\Form\LoginForm;
+use Zend\Authentication\Result;
+
 
 class AuthController extends AbstractActionController{
 
@@ -23,7 +25,34 @@ class AuthController extends AbstractActionController{
     }
     function loginAction(){
         $form = new LoginForm();
-        
+        $request = $this->getRequest();
+        if($request->isPost()){
+            $data = $this->params()->fromPost();
+            $form->setData($data);
+            if($form->isValid()){
+                $data = $form->getData();
+
+                $result = $this->authManager->login($data['email'],$data['password']);
+
+                $message = current($result->getMessages());
+                if($result->getCode() == Result::SUCCESS){
+                    $this->flashMessenger()->addSuccessMessage($message);
+                    return $this->redirect()->toRoute('user',[
+                        'controller'=>'user',
+                        'action'=>'index'
+                    ]);  
+                }
+                
+                $this->flashMessenger()->addErrorMessage($message);
+                return $this->redirect()->toRoute('login',[
+                    'controller'=>'auth',
+                    'action'=>'login'
+                ]);  
+            }
+        }
         return new ViewModel(['form'=>$form]);
+    }
+    function logoutAction(){
+        
     }
 }

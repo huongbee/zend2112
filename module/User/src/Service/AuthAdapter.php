@@ -34,7 +34,7 @@ class AuthAdapter implements AdapterInterface{
      *     If authentication cannot be performed
      */
     public function authenticate(){
-        $user = $this->entityManager->getRepository(User::class)->findOneByEmail($email);
+        $user = $this->entityManager->getRepository(User::class)->findOneByEmail($this->email);
         if(!$user){
             return new Result(
                 Result::FAILURE_IDENTITY_NOT_FOUND,
@@ -48,7 +48,7 @@ class AuthAdapter implements AdapterInterface{
         if ($bcrypt->verify($password, $securePass)) {
             return new Result(
                 Result::SUCCESS,
-                $user->email,
+                $user->getEmail(),
                 ['Login thành công']
             );
         }
