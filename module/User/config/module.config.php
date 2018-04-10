@@ -7,6 +7,7 @@ use Zend\Router\Http\Segment;
 //use Zend\ServiceManager\Factory\InvokableFactory;
 use User\Controller\Factory\UserControllerFactory;
 use Zend\Authentication\AuthenticationService;
+use User\Controller\Factory\AuthControllerFactory;
 
 return [
     'router' => [
@@ -50,7 +51,16 @@ return [
                     ]
                 ],
             ],
-            
+            'login' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/login',
+                    'defaults' => [
+                        'controller'=>'auth',
+                        'action'=>'login'
+                    ]
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -59,7 +69,8 @@ return [
             Controller\AuthController::class => AuthControllerFactory::class
         ],
         'aliases'=>[
-            'user'=>Controller\UserController::class
+            'user'=>Controller\UserController::class,
+            'auth'=>Controller\AuthController::class
         ]
     ],
     'view_manager' => [

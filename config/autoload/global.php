@@ -44,7 +44,7 @@ return [
     ],
     'session_manager'=>[
         'validators'=>[
-            Remote::class,
+            RemoteAddr::class,
             HttpUserAgent::class
         ]
     ],
