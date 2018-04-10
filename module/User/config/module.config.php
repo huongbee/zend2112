@@ -61,6 +61,16 @@ return [
                     ]
                 ],
             ],
+            'logout' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/logout',
+                    'defaults' => [
+                        'controller'=>'auth',
+                        'action'=>'logout'
+                    ]
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -111,4 +121,45 @@ return [
             AuthenticationService::class => Service\Factory\AuthenticationServiceFactory::class
         ]
     ],
+    'access_filter'=>[
+        'controllers'=>[
+            Controller\UserController::class=>[
+                //liệt kê các action được phép truy cập khi chưa login
+                [
+                    'actions'=>[
+                        'forgetPassword',
+                        'setPassword'
+                    ],
+                    'allow'=> 'all'
+                ],
+                //liệt kê các action yêu cầu login
+                [
+                    'actions'=>[
+                        'index',
+                        'delete',
+                        'edit',
+                        'add',
+                        'changePassword'
+                    ],
+                    'allow'=> 'limit'
+                ]
+            ],
+            Controller\AuthController::class=>[
+                //liệt kê các action được phép truy cập khi chưa login
+                [
+                    'actions'=>[
+                        'login'
+                    ],
+                    'allow'=> 'all'
+                ],
+                //liệt kê các action yêu cầu login
+                [
+                    'actions'=>[
+                        'logout'
+                    ],
+                    'allow'=> 'limit'
+                ]
+            ]
+        ]
+    ]
 ];

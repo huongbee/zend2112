@@ -26,6 +26,7 @@ class AuthManager{
         if($result->getCode() === Result::SUCCESS){
             //luu tru session   
             $this->sessionManager->rememberMe(86400*2); //2days
+            return $this->sessionManager;
         }
         return $result;
 

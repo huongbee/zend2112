@@ -34,6 +34,11 @@ class AuthController extends AbstractActionController{
 
                 $result = $this->authManager->login($data['email'],$data['password']);
 
+                echo "<pre>";
+                print_r($result);
+                echo "</pre>"; 
+                return false;
+
                 $message = current($result->getMessages());
                 if($result->getCode() == Result::SUCCESS){
                     $this->flashMessenger()->addSuccessMessage($message);
@@ -53,6 +58,10 @@ class AuthController extends AbstractActionController{
         return new ViewModel(['form'=>$form]);
     }
     function logoutAction(){
-        
+        $this->authManager->logout();
+        return $this->redirect()->toRoute('login',[
+            'controller'=>'auth',
+            'action'=>'login'
+        ]);  
     }
 }
