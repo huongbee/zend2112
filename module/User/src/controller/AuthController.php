@@ -34,10 +34,10 @@ class AuthController extends AbstractActionController{
 
                 $result = $this->authManager->login($data['email'],$data['password']);
 
-                echo "<pre>";
-                print_r($result);
-                echo "</pre>"; 
-                return false;
+                // echo "<pre>";
+                // print_r($result);
+                // echo "</pre>"; 
+                // return false;
 
                 $message = current($result->getMessages());
                 if($result->getCode() == Result::SUCCESS){

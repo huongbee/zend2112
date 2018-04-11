@@ -38,9 +38,9 @@ return [
             ],
         ],
     ],
-    'session_config'=>[
-        'cookie_lifetime'=> 86400*2,
-        'gc_maxlifetime'=>2*86400
+    'session_config' => [
+        'cookie_lifetime' => 3600,//1h
+        'gc_maxlifetime'  => 2*3600
     ],
     'session_manager'=>[
         'validators'=>[
@@ -49,6 +49,6 @@ return [
         ]
     ],
     'session_storage'=>[
-        'type'=>SessionArrayStorage::class
+        'type' => SessionArrayStorage::class
     ]
 ];

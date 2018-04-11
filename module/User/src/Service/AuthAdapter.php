@@ -79,8 +79,6 @@ class AuthAdapter implements AdapterInterface{
         }
         return true;
     }
- 
-
 }
 
 

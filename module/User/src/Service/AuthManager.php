@@ -22,11 +22,13 @@ class AuthManager{
         $authAdapter = $this->authenticationService->getAdapter();
         $authAdapter->setEmail($email);
         $authAdapter->setPassword($password);
-        $result = $authAdapter->authenticate();
+
+        $result = $this->authenticationService->authenticate();
+        
         if($result->getCode() === Result::SUCCESS){
             //luu tru session   
             $this->sessionManager->rememberMe(86400*2); //2days
-            return $this->sessionManager;
+            //return $this->sessionManager;
         }
         return $result;
 
