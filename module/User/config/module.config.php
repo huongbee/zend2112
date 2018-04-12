@@ -123,7 +123,7 @@ return [
     ],
     'access_filter'=>[
         'controllers'=>[
-            Controller\UserController::class=>[
+            'user'=>[
                 //liệt kê các action được phép truy cập khi chưa login
                 [
                     'actions'=>[
@@ -144,7 +144,7 @@ return [
                     'allow'=> 'limit'
                 ]
             ],
-            Controller\AuthController::class=>[
+            'auth'=>[
                 //liệt kê các action được phép truy cập khi chưa login
                 [
                     'actions'=>[

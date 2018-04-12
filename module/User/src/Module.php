@@ -1,5 +1,10 @@
 <?php
 namespace User;
+use Zend\Mvc\MvcEvent;
+use User\Service\AuthManager;
+use Zend\Mvc\Controller\AbstractActionController;
+use User\Controller\AuthController;
+
 
 class Module
 {
