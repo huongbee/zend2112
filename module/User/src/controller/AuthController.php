@@ -49,10 +49,7 @@ class AuthController extends AbstractActionController{
                 $message = current($result->getMessages());
                 if($result->getCode() == Result::SUCCESS){
                     $this->flashMessenger()->addSuccessMessage($message);
-                    return $this->redirect()->toRoute('user',[
-                        'controller'=>'user',
-                        'action'=>'index'
-                    ]);  
+                    return $this->redirect()->toRoute('home');  
                 }
                 
                 $this->flashMessenger()->addErrorMessage($message);

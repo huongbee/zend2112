@@ -12,6 +12,16 @@ use User\Controller\Factory\AuthControllerFactory;
 return [
     'router' => [
         'routes' => [
+            'home' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/',
+                    'defaults' => [
+                        'controller' => 'user',
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
             'user' => [
                 'type'    => Segment::class,
                 'options' => [
