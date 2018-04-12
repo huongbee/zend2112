@@ -61,24 +61,6 @@ class AuthAdapter implements AdapterInterface{
         }
 
     }
-
-    function filterAccess($controllerName,$actionName){
-
-        if(isset($this->config['controllers'][$controllerName])){
-            $controllers = $this->config['controllers'][$controllerName];
-            foreach($controllers as $c){
-                $arrAction = $c['actions'];
-                $allow = $c['allow'];
-                if(in_array($controllerName,$arrAction)){
-                    if($allow == "all"){
-                        return true;
-                    }
-                    else return false;
-                }
-            }
-        }
-        return true;
-    }
 }
 
 

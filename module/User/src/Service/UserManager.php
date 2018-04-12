@@ -147,7 +147,7 @@ class UserManager {
             'connection_class'=>'login',
             'connection_config'=>[
                 'username' =>'huonghuong08.php@gmail.com',
-                'password' => '01234567890000',
+                'password' => 'admin1223',
                 'ssl'      => 'tls',
             ]
         ]);

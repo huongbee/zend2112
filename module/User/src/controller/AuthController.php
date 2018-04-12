@@ -38,6 +38,13 @@ class AuthController extends AbstractActionController{
                 // print_r($result);
                 // echo "</pre>"; 
                 // return false;
+                if($result == -1){
+                    $this->flashMessenger()->addWarningMessage('Bạn đã đăng nhập');
+                    return $this->redirect()->toRoute('user',[
+                        'controller'=>'user',
+                        'action'=>'index'
+                    ]);  
+                }
 
                 $message = current($result->getMessages());
                 if($result->getCode() == Result::SUCCESS){
