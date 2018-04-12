@@ -47,17 +47,20 @@ class AuthManager{
     }
 
     function filterAccess($controllerName,$actionName){
-
+       
         if(isset($this->config['controllers'][$controllerName])){
             $controllers = $this->config['controllers'][$controllerName];
+
             foreach($controllers as $c){
                 $arrAction = $c['actions'];
                 $allow = $c['allow'];
-                if(in_array($controllerName,$arrAction)){
-                    if($allow == "all"){
+
+                if(in_array($actionName,$arrAction)){
+                    if($allow == "all" && $this->authenticationService->hasIdentity() ){
                         return true;
                     }
-                    else return false;
+                    elseif($allow == "limit" && !$this->authenticationService->hasIdentity()) 
+                        return false;
                 }
             }
         }
